@@ -8,8 +8,8 @@ Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes: [
-    { path: '/', component: front },
-    { path: '/product', component: product }
+    // { path: '/', component: front },
+    { path: '/', component: product }
   ]
 })
 new Vue({
