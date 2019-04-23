@@ -4,12 +4,20 @@
     <div class="footer"></div>
   </footer>
 </template>
+<script>
+export default {
+  mounted() {
+
+  }
+};
+</script>
+
 <style scoped>
 footer {
   height: 300px;
   width: 100%;
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
   background: orange;
 }
 .links {

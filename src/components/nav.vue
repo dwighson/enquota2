@@ -6,9 +6,9 @@
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
     </div>
     <div class="logo"></div>
-    <ul class="navlist">
+    <!-- <ul class="navlist">
       <span class="navwrap">
-        <routerlink tag="li" to="/">Shop</routerlink>
+        <router-link tag="li" to="/">Shop</router-link>
         
         <li>over ons</li>
         <li>Contact</li>
@@ -18,7 +18,7 @@
           <div class="carticon"></div>
         </li>
       </span>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
