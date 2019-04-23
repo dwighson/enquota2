@@ -44,7 +44,7 @@
           <div class="count">{{ amount }}</div>
           <div class="add" v-on:click="add">+</div>
         </div>
-        <button>in mijn winkelmandje</button>
+        <button v-on:click="addtocart">in mijn winkelmandje</button>
       </div>
     </div>
   </div>
@@ -69,18 +69,46 @@ export default {
       description: "",
       title: "",
       images: [],
-      chosenvariant: ""
+      collectionId: "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzEyOTMyMjQ1MTAyMg",
+      chosenvariant: "",
+      products: null,
+      checkoutid:
+        "Z2lkOi8vc2hvcGlmeS9DaGVja291dC80MmFiMzJlYjQzMjQ5Nzg4YWM5MmM5Njg2ODFhNjE2OT9rZXk9MzQ0MThjMDU3NTRkOGFjYjQ4YThjNmU1NWVhYTQwMDA="
     };
   },
   methods: {
     selectformat(index) {
       this.selectedformat = index;
+
+      let format = this.options.format[index];
+      let depth = this.options.depth[this.selecteddepth];
+      let border = this.options.border[this.selectedborder];
+      let query = format + " / " + depth + " / " + border;
+
+      this.chosenvariant = query;
+      console.log(this.chosenvariant);
     },
     selectdepth(index) {
       this.selecteddepth = index;
+
+      let format = this.options.format[this.selectedformat];
+      let depth = this.options.depth[index];
+      let border = this.options.border[this.selectedborder];
+      let query = format + " / " + depth + " / " + border;
+
+      this.chosenvariant = query;
+
+      console.log(this.chosenvariant);
     },
     selectborder(index) {
       this.selectedborder = index;
+
+      let format = this.options.format[this.selectedformat];
+      let depth = this.options.depth[this.selecteddepth];
+      let border = this.options.border[index];
+      let query = format + " / " + depth + " / " + border;
+
+      console.log(this.chosenvariant);
     },
     add() {
       this.amount++;
@@ -89,10 +117,33 @@ export default {
       if (this.amount >= 2) {
         this.amount--;
       }
+    },
+    addtocart() {
+      let chosenvariant = this.chosenvariant;
+
+      let variantobj = this.products.variants.filter(function(variant) {
+        return variant.title == chosenvariant;
+      });
+
+      const lineItemsToAdd = [
+        {
+          variantId: variantobj[0].id,
+          quantity: this.amount
+        }
+      ];
+      console.log(lineItemsToAdd);
+      // Add an item to the checkout
+      client.checkout
+        .addLineItems(this.checkoutid, lineItemsToAdd)
+        .then(checkout => {
+          // Do something with the updated checkout
+          console.log(checkout.lineItems); // Array with one additional line item
+        });
     }
   },
   mounted() {
     $(".carousel").slick({
+      lazyLoad: "ondemand",
       slidesToShow: 1,
       dots: false,
       arrows: false,
@@ -100,6 +151,7 @@ export default {
     });
 
     $(".carouselnav").slick({
+      lazyLoad: "ondemand",
       slidesToShow: 4,
       dots: false,
       arrows: false,
@@ -111,9 +163,8 @@ export default {
     const collectionId = "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzEyOTMyMjQ1MTAyMg==";
 
     client.collection.fetchWithProducts(collectionId).then(collection => {
-      // Do something with the collection
-      // console.log(collection);
       let products = collection.products[0];
+      this.products = products;
       this.description = products.descriptionHtml;
       this.title = products.title;
       this.options.format = products.options[0].values;
@@ -121,10 +172,8 @@ export default {
       this.options.border = products.options[2].values;
       // this.images = products.images.src
       // console.log(products.variants[12].title)
-      let chosenvariant = this.chosenvariant
 
-      let variantobj = products.variants.filter(function(variant) { return variant.title == chosenvariant})
-      console.log(variantobj[0].id)
+      // console.log(variantobj[0].id);
       let imgg = this.images;
       for (let i = 0; i <= products.images.length - 1; i++) {
         // console.log(products.images[i].src)
@@ -134,16 +183,12 @@ export default {
           for (let x = 0; x <= imgg.length - 1; x++) {
             $(".carousel").slick(
               "slickAdd",
-              "<div class='slide' style='background: black url(" +
-                imgg[x] +
-                ") no-repeat center center; background-size: cover;height: 400px;'></div>"
+              "<div class='slide'><img draggable'false' data-lazy=" + imgg[x] + "/></div>"
             );
 
             $(".carouselnav").slick(
               "slickAdd",
-              "<div class='slide' style='background: black url(" +
-                imgg[x] +
-                ") no-repeat center center; background-size: cover; height: 100px;'></div>"
+              "<div class='slide'><img draggable'false' data-lazy=" + imgg[x] + "/></div>"
             );
           }
         }
@@ -152,8 +197,8 @@ export default {
 
     // client.checkout.create().then(checkout => {
     //   // Do something with the checkout
-    //   this.checkout = checkout
-    //   console.log(this.checkout);
+    //   this.checkoutid = checkout.id
+    //   console.log(this.checkoutid);
 
     // });
     this.chosenvariant = "30x40 / 2 cm / geen lijst";
@@ -161,7 +206,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .product {
   padding-top: 50px;
   min-height: 400px;
@@ -201,19 +246,29 @@ export default {
 .carousel .slide {
   height: 400px;
   width: 400px;
+  overflow: hidden;
   min-height: 400px;
   background: black;
 }
-
+.slide img {
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  user-select: none;
+  user-drag: none; 
+}
 .carouselnav {
   height: 100px;
   width: 400px;
 }
 .carouselnav .slide {
-  height: 90px;
+  height: 90px !important;
+  overflow: hidden;
+
   width: 90px;
   background: black;
 }
+
 .carouselnav .slick-slide {
   margin: 5px;
 }
