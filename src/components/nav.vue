@@ -6,19 +6,19 @@
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
     </div> -->
     <div class="logo"></div>
-    <!-- <ul class="navlist">
+    <ul class="navlist">
       <span class="navwrap">
-        <router-link tag="li" to="/">Shop</router-link>
+        <router-link tag="li" to="/cart" class="cart"><div class="carticon"></div></router-link>
         
-        <li>over ons</li>
+        <!-- <li>over ons</li>
         <li>Contact</li>
-        <li>testimonials</li>
+        <li>testimonials</li> -->
 
-        <li class="cart">
+        <!-- <li class="cart">
           <div class="carticon"></div>
-        </li>
+        </li> -->
       </span>
-    </ul> -->
+    </ul>
   </div>
 </template>
 
@@ -33,6 +33,9 @@ export default {
     closebanner() {
       this.close =! this.close
     }
+  },
+  mounted() {
+
   }
 };
 </script>

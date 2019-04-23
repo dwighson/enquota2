@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <navbar/>
-    <router-view/>
+    <transition name="fade">
+      <router-view/>
+    </transition>
     <footerlinks/>
-
   </div>
 </template>
 
@@ -49,15 +50,28 @@ body {
 /* ::-webkit-scrollbar-button:hover{ background-color: #22E7AF; }  */
 
 ::-webkit-scrollbar-thumb {
-  background-color: #CCC;
+  background-color: #ccc;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #22E7AF;
+  background-color: #22e7af;
 }
 ::-webkit-scrollbar-track {
   background-color: white;
 }
 ::-webkit-scrollbar {
   width: 13px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: height, opacity;
+  transition-timing-function: ease;
+  overflow: hidden;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 </style>

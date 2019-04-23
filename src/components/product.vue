@@ -22,6 +22,7 @@
           v-bind:key="index"
         >{{item}}</div>
       </div>
+      <p>diepte:</p>
       <div class="diepte">
         <div
           v-bind:class="{depths: true, selectedformat:selecteddepth == index}"
@@ -30,6 +31,7 @@
           v-bind:key="index"
         >{{item}}</div>
       </div>
+      <p>lijst:</p>
       <div class="lijst">
         <div
           v-bind:class="{border: true, selectedformat:selectedborder == index}"
@@ -73,7 +75,7 @@ export default {
       chosenvariant: "",
       products: null,
       checkoutid:
-        "Z2lkOi8vc2hvcGlmeS9DaGVja291dC80MmFiMzJlYjQzMjQ5Nzg4YWM5MmM5Njg2ODFhNjE2OT9rZXk9MzQ0MThjMDU3NTRkOGFjYjQ4YThjNmU1NWVhYTQwMDA="
+        ""
     };
   },
   methods: {
@@ -194,13 +196,8 @@ export default {
         }
       }
     });
+    this.checkoutid = localStorage.checkoutid
 
-    // client.checkout.create().then(checkout => {
-    //   // Do something with the checkout
-    //   this.checkoutid = checkout.id
-    //   console.log(this.checkoutid);
-
-    // });
     this.chosenvariant = "30x40 / 2 cm / geen lijst";
   }
 };

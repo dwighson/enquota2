@@ -21,6 +21,18 @@
       domain: 'enquotatest.myshopify.com'
     });
 
+    if(!localStorage.getItem('checkoutid')){
+        // create new checkoutid
+      client.checkout.create().then(checkout => {
+      // Do something with the checkout
+      let check = checkout.id
+      localStorage.setItem('checkoutid',check)
+
+      console.log(localStorage)
+
+    });
+    }
+
   </script>
   <div id="app"></div>
   <!-- built files will be auto injected -->
