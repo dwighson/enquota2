@@ -122,15 +122,16 @@ export default {
     },
     addtocart() {
       let chosenvariant = this.chosenvariant;
-
+      let snapshot = this.options
       let variantobj = this.products.variants.filter(function(variant) {
         return variant.title == chosenvariant;
       });
-
+      
       const lineItemsToAdd = [
         {
           variantId: variantobj[0].id,
-          quantity: this.amount
+          quantity: this.amount,
+          customAttributes: [{key: "MyKey", value: JSON.stringify(snapshot)}]
         }
       ];
       console.log(lineItemsToAdd);
@@ -196,7 +197,7 @@ export default {
         }
       }
     });
-    this.checkoutid = localStorage.checkoutid
+    this.checkoutid = localStorage.getItem('checkoutid')
 
     this.chosenvariant = "30x40 / 2 cm / geen lijst";
   }
@@ -245,7 +246,6 @@ export default {
   width: 400px;
   overflow: hidden;
   min-height: 400px;
-  background: black;
 }
 .slide img {
   height: 100%;
@@ -263,7 +263,6 @@ export default {
   overflow: hidden;
 
   width: 90px;
-  background: black;
 }
 
 .carouselnav .slick-slide {

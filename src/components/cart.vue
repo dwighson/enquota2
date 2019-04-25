@@ -2,18 +2,46 @@
   <div class="cartpage">
     <button>doorgaan met shoppen!</button>
     <h1>Winkelwagen</h1>
-    <ul>
-      <li v-for="i in 2" v-bind:key="i">
+    <ul class="cartitem">
+      <li v-for="(item, i) in checkoutobj" v-bind:key="i">
         <div class="thumbnail"></div>
         <div class="iteminfo">
           <p class="title">
-            key to succes
-            <span>&euro;75,00</span>
+            {{item.title}}
+            <span>&euro;{{item.variant.price}}</span>
           </p>
-          <div class="aantal"></div>
-          <div class="formaat"></div>
-          <div class="diepte"></div>
-          <div class="lijst"></div>
+
+          <div class="aantal">
+            <button class="optionbutton">{{item.quantity}}</button>
+            <ul class="dropdown">
+              <li></li>
+            </ul>
+          </div>
+          <div class="formaat">
+            <button class="optionbutton">20x40</button>
+            <ul class="dropdown">
+              <li
+                v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
+              >{{option}}</li>
+            </ul>
+          </div>
+          <div class="diepte">
+            <button class="optionbutton">2 cm</button>
+            <ul class="dropdown">
+              <li
+                v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).depth"
+              >{{option}}</li>
+            </ul>
+          </div>
+          <div class="lijst">
+            <button class="optionbutton">geen lijst</button>
+            <ul class="dropdown">
+              <li
+                v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).border"
+              >{{option}}</li>
+            </ul>
+          </div>
+
           <p>verwijder product</p>
         </div>
       </li>
@@ -21,7 +49,7 @@
     <div class="total">
       <p>
         subtotaal:
-        <span>&euro;150,00</span>
+        <span>&euro;{{ checkoutraw.lineItemsSubtotalPrice.amount}}</span>
       </p>
       <p>
         verzendkosten:
@@ -43,38 +71,131 @@
   </div>
 </template>
 <script>
-import dropdown from './dropdown.js'
+import dropdown from "./dropdown.js";
+import $ from "jquery";
 export default {
   data() {
     return {
       checkoutid: localStorage.getItem("checkoutid"),
       cart: null,
-      checkoutobj: null,
-      chosenOptions: ""
+      checkoutobj: [],
+      checkoutraw: [],
+      chosenOptions: "",
+      products: [],
+      options: []
     };
   },
+
   methods: {
-    toggleDropdown(index) {
-      this.dropdowns[index] = !this.dropdowns[index];
-      let value = this.product[index].option[index];
-      this.chosenOption = value;
-    },
-    togglebutton() {
-      this.dropdowns[index] = !this.dropdowns[index];
+    fetchproduct(id, custom, key) {
+      // console.log(id);
+      // console.log(key);
+
+      client.product.fetch(id).then(product => {
+        // Do something with the product
+        // console.log(product);
+        /* 
+        this.products.push({
+          options: {
+            format: [],
+            depth: [],
+            border: []
+          },
+          selectedformat: 0,
+          selecteddepth: 0,
+          selectedborder: 0,
+          chosenvariant: title,
+        })
+
+          */
+      });
+
+      // if (key == 0) {
+      let objj = Object.values(JSON.parse(custom[0].value));
+
+      let options = {
+        format: [],
+        depth: [],
+        border: []
+      };
+      // console.log(objj[1][0].value);
+      for (let i = 0; i <= objj[0].length - 1; i++) {
+        options.format.push(objj[0][i].value);
+      }
+      for (let i = 0; i <= objj[1].length - 1; i++) {
+        options.depth.push(objj[1][i].value);
+      }
+      for (let i = 0; i <= objj[2].length - 1; i++) {
+        options.border.push(objj[2][i].value);
+      }
+
+      return options;
+      // this.options.push({objj});
+      // console.log(this.options);
+      // }
     }
   },
   mounted() {
-    console.log(this.cart);
+    // console.log(this.cart);
     let checkid = this.checkoutid;
     client.checkout.fetch(checkid).then(checkout => {
       // Do something with the checkout
-      this.checkoutobj = checkout
+      this.checkoutraw = checkout
       // console.log(this.checkoutobj);
-      // for(let i = 0; i <= checkout.lineItems.length - 2; i++) {
+      for (let i = 0; i <= checkout.lineItems.length - 1; i++) {
+        this.checkoutobj.push(checkout.lineItems[i]);
 
-      // }
-      console.log(this.checkoutobj)
+        // console.log(checkout.lineItems[i].variant.title)
+
+        const productId = this.checkoutobj[i].variant.product.id;
+
+        client.product.fetch(productId).then(product => {
+          // Do something with the product
+          // console.log(product);
+        });
+      }
+      // console.log(this.checkoutobj[0].variant.product.id);
+
+      // console.log(this.checkoutobj)
+      $("body").on("click", ".optionbutton", function(e) {
+        $(this)
+          .parent()
+          .find("ul.dropdown");
+        console.log(e.target);
+        let dropdown = $(this)
+          .parent()
+          .find("ul.dropdown");
+        if (dropdown.css("display") == "none") {
+          dropdown.css({
+            display: "block"
+          });
+        } else {
+          dropdown.css({
+            display: "none"
+          });
+        }
+      });
+
+      $("body").on("click", ".dropdown li", function(e) {
+        let index = $(this).index();
+        let text = $(this).text();
+        $(this)
+          .parent()
+          .parent()
+          .find(".optionbutton")
+          .text(text);
+        // console.log($(this).parent()[0]);
+        $(this)
+          .parent()
+          .css({
+            display: "none"
+          });
+      });
     });
+    console.log(
+    this.checkoutraw
+
+    )    
   }
 };
 </script>
@@ -86,11 +207,11 @@ export default {
   text-align: center;
   background: #f0f0f0;
 }
-ul {
+ul.cartitem {
   display: inline-block;
   padding: 0;
 }
-li {
+.cartitem li {
   display: flex;
   background: green;
   margin: 10px;
@@ -118,5 +239,21 @@ p {
   height: 400px;
   width: 500px;
   background: purple;
+}
+.dropdown {
+  padding: 0;
+  display: none;
+  margin: 0;
+  width: 200px;
+  background: yellow;
+}
+.optionbutton {
+  width: 200px;
+  margin: 0;
+}
+.dropdown li {
+  display: block;
+  width: 100%;
+  margin: 0;
 }
 </style>

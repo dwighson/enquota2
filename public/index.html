@@ -21,17 +21,23 @@
       domain: 'enquotatest.myshopify.com'
     });
 
-    if(!localStorage.getItem('checkoutid')){
-        // create new checkoutid
+    if (!localStorage.getItem('checkoutid')) {
+      // create new checkoutid
       client.checkout.create().then(checkout => {
-      // Do something with the checkout
-      let check = checkout.id
-      localStorage.setItem('checkoutid',check)
+        // Do something with the checkout
+        let check = checkout.id
+        localStorage.setItem('checkoutid', check)
 
-      console.log(localStorage)
+        console.log(localStorage)
 
-    });
+      });
     }
+    // localStorage.removeItem('checkoutid')
+    // console.log(localStorage.getItem('checkoutid'))
+    client.checkout.fetch(localStorage.getItem('checkoutid')).then((checkout) => {
+      // Do something with the checkout
+      console.log(checkout);
+    });
 
   </script>
   <div id="app"></div>
