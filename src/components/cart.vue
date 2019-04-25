@@ -72,7 +72,7 @@
 </template>
 <script>
 import dropdown from "./dropdown.js";
-
+import $ from 'jquery'
 export default {
   data() {
     return {

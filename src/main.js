@@ -28,6 +28,7 @@ if (!localStorage.getItem('checkoutid')) {
 }
 
 Vue.prototype.$shopify  = client
+Vue.prototype.$jquery = $
 
 const router = new VueRouter({
   routes: [
