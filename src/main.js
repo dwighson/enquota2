@@ -31,9 +31,10 @@ Vue.prototype.$shopify  = client
 Vue.prototype.$jquery = $
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
-    // { path: '/', component: front },
-    { path: '/', component: product },
+    { path: '/', component: front },
+    { path: '/product', component: product },
     { path: '/cart', component: cart },
 
   ]

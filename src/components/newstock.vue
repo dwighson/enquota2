@@ -1,9 +1,9 @@
 <template>
   <div class="newstock">
     <h1>nieuwe canvassen op voorraad</h1>
-    <router-link to="product">
-    <div class="newstockitem" v-for="i in 4" v-bind:key="i">item</div>
-    </router-link>
+      <router-link to="product" v-for="i in 4" v-bind:key="i">
+        <div class="newstockitem" >item</div>
+      </router-link>
   </div>
 </template>
 <style>
@@ -13,7 +13,7 @@
   width: 100%;
   padding-bottom: 50px;
   text-align: center;
-  background: #F7F7F7;
+  background: #f7f7f7;
 }
 
 .newstock h1 {

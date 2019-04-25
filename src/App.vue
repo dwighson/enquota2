@@ -21,7 +21,7 @@ export default {
     // console.log(localStorage.getItem('checkoutid'))
     this.$shopify.checkout.fetch(localStorage.getItem('checkoutid')).then((checkout) => {
       // Do something with the checkout
-      console.log(checkout);
+      // console.log(checkout);
     });
   }
 };
@@ -39,6 +39,7 @@ body {
 }
 * {
   font-family: "M PLUS Rounded 1c";
+  /* outline:1px solid red; */
 }
 #app {
   padding-top: 230px;

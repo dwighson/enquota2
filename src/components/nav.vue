@@ -1,22 +1,20 @@
 <template>
   <div class="nav">
     <div class="shipping">Gratis verzending voor Nederland en België</div>
-    <!-- <div class="announcement" v-show="close == false">
+    <div class="announcement" v-show="close == false">
       Kempi Collectie staat nu online!
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
-    </div> -->
+    </div>
     <div class="logo"></div>
     <ul class="navlist">
       <span class="navwrap">
-        <router-link tag="li" to="/cart" class="cart"><div class="carticon"></div></router-link>
-        
-        <!-- <li>over ons</li>
+        <router-link  tag="li" to="/">Shop</router-link>
+        <li>over ons</li>
         <li>Contact</li>
-        <li>testimonials</li> -->
+        <li>testimonials</li>
 
-        <!-- <li class="cart">
-          <div class="carticon"></div>
-        </li> -->
+               <router-link tag="li" to="/cart" class="cart"><div class="carticon"></div></router-link>
+
       </span>
     </ul>
   </div>

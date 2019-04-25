@@ -3,14 +3,16 @@
     <div class="filter">
       <p>Collections</p>
       <ul>
-        <li v-for="i in 30" v-bind:key="i">
-          <input type="checkbox">
-          collection
+        <li v-for="(collection, i) in collections" v-bind:key="i">
+          <div class="checkbox">
+            <div class="checked"></div>
+          </div>
+          {{collection.title}}
         </li>
       </ul>
     </div>
     <div class="collections">
-      <div class="item" v-for="i in 8" v-bind:key="i">
+      <div class="item" v-for="(product, i) in  collections[0].products" v-bind:key="i">
         <div class="thumbnail"></div>
         <div class="titleAndPrice">
           <div class="title">product title</div>
@@ -21,13 +23,38 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      collectionss: [],
+      selectedCollection: ""
+    };
+  },
+  computed: {
+    collections(){
+      var coll;
+       this.$shopify.collection.fetchAllWithProducts().then(collections => {
+      // Do something with the collections
+      // console.log(collections);
+      this.collectionss = collections;
+      
+     
+    });
+    return this.collectionss
+    }
+  },
+  mounted() {
+   
+  }
+};
 </script>
 
 <style scoped>
 .allcollections {
   padding-top: 100px;
   display: flex;
+  width: calc(100% - 100px);
+  margin: 0 auto;
 }
 .filter {
   flex: 1;
@@ -37,6 +64,24 @@ export default {};
   box-sizing: border-box;
   max-width: 350px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.checkbox {
+  height: 20px;
+  border: 1px solid #22e7af;
+  margin: 5px;
+  width: 20px;
+  margin-right: 30px;
+}
+
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+.checkbox .checked {
+  background: #22e7af;
+  margin: 2px;
+  height: 16px;
+  width: 16px;
 }
 .collections {
   margin: 20px;
@@ -60,6 +105,7 @@ export default {};
 }
 .filter li {
   display: flex;
+  margin-bottom: 5px;
 }
 .item .thumbnail {
   height: 295px;

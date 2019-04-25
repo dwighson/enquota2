@@ -11,31 +11,35 @@
             <span>&euro;{{item.variant.price}}</span>
           </p>
 
-          <div class="aantal">
+          <div class="aantal dropdownwrap">
             <button class="optionbutton">{{item.quantity}}</button>
-            <ul class="dropdown" v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format">
+            <ul
+              class="dropdown"
+              style="display: none;"
+              v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
+            >
               <li>{{option}}</li>
             </ul>
           </div>
-          <div class="formaat">
+          <div class="formaat dropdownwrap">
             <button class="optionbutton">20x40</button>
-            <ul class="dropdown">
+            <ul class="dropdown" style="display: none;">
               <li
                 v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
               >{{option}}</li>
             </ul>
           </div>
-          <div class="diepte">
+          <div class="diepte dropdownwrap">
             <button class="optionbutton">2 cm</button>
-            <ul class="dropdown">
+            <ul class="dropdown" style="display: none;">
               <li
                 v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).depth"
               >{{option}}</li>
             </ul>
           </div>
-          <div class="lijst">
+          <div class="lijst dropdownwrap">
             <button class="optionbutton">geen lijst</button>
-            <ul class="dropdown">
+            <ul class="dropdown" style="display: none;">
               <li
                 v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).border"
               >{{option}}</li>
@@ -72,7 +76,8 @@
 </template>
 <script>
 import dropdown from "./dropdown.js";
-import $ from 'jquery'
+import $ from "jquery";
+import { setTimeout } from "timers";
 export default {
   data() {
     return {
@@ -89,9 +94,7 @@ export default {
   methods: {
     removeproduct(id) {
       const checkoutId = this.checkoutid; // ID of an existing checkout
-      const lineItemIdsToRemove = [
-        id
-      ];
+      const lineItemIdsToRemove = [id];
 
       // Remove an item from the checkout
       this.$shopify.checkout
@@ -104,8 +107,6 @@ export default {
     fetchproduct(id, custom, key) {
       // console.log(id);
       // console.log(key);
-
-
 
       // if (key == 0) {
       let objj = Object.values(JSON.parse(custom[0].value));
@@ -134,6 +135,7 @@ export default {
   },
   mounted() {
     // console.log(this.cart);
+
     let checkid = this.checkoutid;
     this.$shopify.checkout.fetch(checkid).then(checkout => {
       // Do something with the checkout
@@ -154,40 +156,46 @@ export default {
       // console.log(this.checkoutobj[0].variant.product.id);
 
       // console.log(this.checkoutobj)
-      $("body").on("click", ".optionbutton", function(e) {
-        $(this)
-          .parent()
-          .find("ul.dropdown");
-        console.log(e.target);
-        let dropdown = $(this)
-          .parent()
-          .find("ul.dropdown");
-        console.log(dropdown)
-        if (dropdown.css("display") == "none") {
-          dropdown.css({
-            display: "block"
-          });
-        } else {
-          dropdown.css({
-            display: "none"
-          });
-        }
-      });
+      $(document).ready(function() {
+        setTimeout(() => {
+          $("body").on("click", ".optionbutton", function(e) {
+            $(this)
+              .parent()
+              .find("ul.dropdown");
+            let dropdown = $(this)
+              .parent()
+              .find("ul.dropdown");
 
-      $("body").on("click", ".dropdown li", function(e) {
-        let index = $(this).index();
-        let text = $(this).text();
-        $(this)
-          .parent()
-          .parent()
-          .find(".optionbutton")
-          .text(text);
-        // console.log($(this).parent()[0]);
-        $(this)
-          .parent()
-          .css({
-            display: "none"
+
+            if (dropdown.css("display") == "none") {
+              dropdown.css({
+                display: "block"
+              });
+            } else {
+              dropdown.css({
+                display: "none"
+              });
+            }
           });
+
+          $("body").on("click", ".dropdown li", function(e) {
+
+            
+            let index = $(this).index();
+            let text = $(this).text();
+            $(this)
+              .parent()
+              .parent()
+              .find(".optionbutton")
+              .text(text);
+            // console.log($(this).parent()[0]);
+            $(this)
+              .parent()
+              .css({
+                display: "none"
+              });
+          });
+        }, 1000);
       });
     });
     console.log(this.checkoutobj);
@@ -208,18 +216,18 @@ ul.cartitem {
 }
 .cartitem li {
   display: flex;
-  background: green;
   margin: 10px;
-  width: 600px;
+  text-align: left;
+  width: 700px;
 }
 .thumbnail {
   height: 250px;
-  width: 250px;
+  min-width: 250px;
   background: black;
 }
 .iteminfo {
   background: grey;
-  width: 300px;
+  min-width: 300px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -237,14 +245,18 @@ p {
 }
 .dropdown {
   padding: 0;
-  display: none;
   margin: 0;
-  width: 200px;
+  position: absolute;
+  width: 140px;
   background: yellow;
 }
 .optionbutton {
-  width: 200px;
+  width: 140px;
   margin: 0;
+}
+.dropdownwrap {
+  float: left; 
+  position: relative;
 }
 .dropdown li {
   display: block;
