@@ -13,8 +13,8 @@
 
           <div class="aantal">
             <button class="optionbutton">{{item.quantity}}</button>
-            <ul class="dropdown">
-              <li></li>
+            <ul class="dropdown" v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format">
+              <li>{{option}}</li>
             </ul>
           </div>
           <div class="formaat">
@@ -42,14 +42,14 @@
             </ul>
           </div>
 
-          <p>verwijder product</p>
+          <p v-on:click="removeproduct(item.id)">verwijder product</p>
         </div>
       </li>
     </ul>
     <div class="total">
       <p>
         subtotaal:
-        <span>&euro;{{ checkoutraw.lineItemsSubtotalPrice.amount}}</span>
+        <!-- <span>&euro;{{ checkoutraw.lineItemsSubtotalPrice.amount}}</span> -->
       </p>
       <p>
         verzendkosten:
@@ -87,6 +87,20 @@ export default {
   },
 
   methods: {
+    removeproduct(id) {
+      const checkoutId = this.checkoutid; // ID of an existing checkout
+      const lineItemIdsToRemove = [
+        id
+      ];
+
+      // Remove an item from the checkout
+      client.checkout
+        .removeLineItems(checkoutId, lineItemIdsToRemove)
+        .then(checkout => {
+          // Do something with the updated checkout
+          console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
+        });
+    },
     fetchproduct(id, custom, key) {
       // console.log(id);
       // console.log(key);
@@ -140,7 +154,7 @@ export default {
     let checkid = this.checkoutid;
     client.checkout.fetch(checkid).then(checkout => {
       // Do something with the checkout
-      this.checkoutraw = checkout
+      this.checkoutraw = checkout;
       // console.log(this.checkoutobj);
       for (let i = 0; i <= checkout.lineItems.length - 1; i++) {
         this.checkoutobj.push(checkout.lineItems[i]);
@@ -165,6 +179,7 @@ export default {
         let dropdown = $(this)
           .parent()
           .find("ul.dropdown");
+        console.log(dropdown)
         if (dropdown.css("display") == "none") {
           dropdown.css({
             display: "block"
@@ -192,10 +207,7 @@ export default {
           });
       });
     });
-    console.log(
-    this.checkoutraw
-
-    )    
+    console.log(this.checkoutobj);
   }
 };
 </script>
