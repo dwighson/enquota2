@@ -16,30 +16,9 @@
   </noscript>
 
   <div id="app"></div>
-  <script src="http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js"></script>
+  <!-- <script src="http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js"></script> -->
   <script>
-    var client = ShopifyBuy.buildClient({
-      storefrontAccessToken: 'd227c91ea2dec0f4ae3a9257ab3b7d41',
-      domain: 'enquotatest.myshopify.com'
-    });
-
-    if (!localStorage.getItem('checkoutid')) {
-      // create new checkoutid
-      client.checkout.create().then(checkout => {
-        // Do something with the checkout
-        let check = checkout.id
-        localStorage.setItem('checkoutid', check)
-
-        console.log(localStorage)
-
-      });
-    }
-    // localStorage.removeItem('checkoutid')
-    // console.log(localStorage.getItem('checkoutid'))
-    client.checkout.fetch(localStorage.getItem('checkoutid')).then((checkout) => {
-      // Do something with the checkout
-      console.log(checkout);
-    });
+   
 
   </script>
   <!-- built files will be auto injected -->

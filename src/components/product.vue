@@ -136,7 +136,7 @@ export default {
       ];
       console.log(lineItemsToAdd);
       // Add an item to the checkout
-      client.checkout
+      this.$shopify.checkout
         .addLineItems(this.checkoutid, lineItemsToAdd)
         .then(checkout => {
           // Do something with the updated checkout
@@ -165,7 +165,7 @@ export default {
 
     const collectionId = "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzEyOTMyMjQ1MTAyMg==";
 
-    client.collection.fetchWithProducts(collectionId).then(collection => {
+    this.$shopify.collection.fetchWithProducts(collectionId).then(collection => {
       let products = collection.products[0];
       this.products = products;
       this.description = products.descriptionHtml;

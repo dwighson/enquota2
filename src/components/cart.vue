@@ -72,7 +72,7 @@
 </template>
 <script>
 import dropdown from "./dropdown.js";
-import $ from "jquery";
+
 export default {
   data() {
     return {
@@ -94,7 +94,7 @@ export default {
       ];
 
       // Remove an item from the checkout
-      client.checkout
+      this.$shopify.checkout
         .removeLineItems(checkoutId, lineItemIdsToRemove)
         .then(checkout => {
           // Do something with the updated checkout
@@ -105,24 +105,7 @@ export default {
       // console.log(id);
       // console.log(key);
 
-      client.product.fetch(id).then(product => {
-        // Do something with the product
-        // console.log(product);
-        /* 
-        this.products.push({
-          options: {
-            format: [],
-            depth: [],
-            border: []
-          },
-          selectedformat: 0,
-          selecteddepth: 0,
-          selectedborder: 0,
-          chosenvariant: title,
-        })
 
-          */
-      });
 
       // if (key == 0) {
       let objj = Object.values(JSON.parse(custom[0].value));
@@ -152,7 +135,7 @@ export default {
   mounted() {
     // console.log(this.cart);
     let checkid = this.checkoutid;
-    client.checkout.fetch(checkid).then(checkout => {
+    this.$shopify.checkout.fetch(checkid).then(checkout => {
       // Do something with the checkout
       this.checkoutraw = checkout;
       // console.log(this.checkoutobj);
@@ -163,10 +146,10 @@ export default {
 
         const productId = this.checkoutobj[i].variant.product.id;
 
-        client.product.fetch(productId).then(product => {
-          // Do something with the product
-          // console.log(product);
-        });
+        // this.$shopify.product.fetch(productId).then(product => {
+        //   // Do something with the product
+        //   // console.log(product);
+        // });
       }
       // console.log(this.checkoutobj[0].variant.product.id);
 

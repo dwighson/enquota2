@@ -15,7 +15,15 @@ import footerlinks from "./components/footerlinks";
 export default {
   name: "App",
   components: { navbar, products, footerlinks },
-  methods: {}
+  mounted() {
+ 
+    // localStorage.removeItem('checkoutid')
+    // console.log(localStorage.getItem('checkoutid'))
+    this.$shopify.checkout.fetch(localStorage.getItem('checkoutid')).then((checkout) => {
+      // Do something with the checkout
+      console.log(checkout);
+    });
+  }
 };
 </script>
 
