@@ -3,22 +3,28 @@
     <div class="filter">
       <p>Collections</p>
       <ul>
-        <li v-for="(collection, i) in collections" v-bind:key="i">
+        <li v-for="(collection, i) in collections" v-bind:key="i" v-on:click="selectCollection(i)">
           <div class="checkbox">
-            <div class="checked"></div>
+            <div class="checked" v-if="selectedCollection == i"></div>
           </div>
           {{collection.title}}
         </li>
       </ul>
     </div>
     <div class="collections">
-      <div class="item" v-for="(product, i) in  collections[0].products" v-bind:key="i">
-        <div class="thumbnail"></div>
+      <div
+        class="item"
+        v-on:click="gotoproduct(product)"
+        v-for="(product, i) in  collections[selectedCollection].products"
+        v-bind:key="i"
+      >
+        <div class="thumbnail"><img v-bind:src="product.images[0].src" alt=""></div>
         <div class="titleAndPrice">
-          <div class="title">product title</div>
-          <div class="price">&euro; 73 ,-</div>
+          <div class="title">{{product.title}}</div>
+          <div class="price">&euro;{{product.variants[0].price}},-</div>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -27,25 +33,33 @@ export default {
   data() {
     return {
       collectionss: [],
-      selectedCollection: ""
+      selectedCollection: 0
     };
   },
   computed: {
-    collections(){
+    collections() {
       var coll;
-       this.$shopify.collection.fetchAllWithProducts().then(collections => {
-      // Do something with the collections
-      // console.log(collections);
-      this.collectionss = collections;
-      
-     
-    });
-    return this.collectionss
+      this.$shopify.collection.fetchAllWithProducts().then(collections => {
+        // Do something with the collections
+        // console.log(collections);
+        // console.log(collections[0].products)
+        this.collectionss = collections;
+      });
+      return this.collectionss;
     }
   },
-  mounted() {
-   
-  }
+  methods: {
+    selectCollection(index) {
+      this.selectedCollection = index;
+    },
+    gotoproduct(product) {
+      let collectionhandle = this.collections[this.selectedCollection].id;
+      console.log(collectionhandle)
+      let producthandle = product.handle;
+      this.$router.push("product/" + collectionhandle + "/" + producthandle);
+    }
+  },
+  mounted() {}
 };
 </script>
 
@@ -112,5 +126,11 @@ ul {
   width: 295px;
   background: #f6f6f6;
   margin: 0px 5px 5px 5px;
+}
+.thumbnail img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  
 }
 </style>

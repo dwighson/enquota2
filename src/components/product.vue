@@ -1,5 +1,6 @@
 <template>
   <div class="product">
+    
     <div class="slider">
       <div class="carousel"></div>
       <div class="carouselnav"></div>
@@ -163,16 +164,18 @@ export default {
       centerMode: false
     });
 
-    const collectionId = "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzEyOTMyMjQ1MTAyMg==";
-
+    const collectionId = this.$route.params.collectionid;
+    console.log(collectionId)
+    const productId = this.$route.params.productid
     this.$shopify.collection.fetchWithProducts(collectionId).then(collection => {
-      let products = collection.products[0];
-      this.products = products;
-      this.description = products.descriptionHtml;
-      this.title = products.title;
-      this.options.format = products.options[0].values;
-      this.options.depth = products.options[1].values;
-      this.options.border = products.options[2].values;
+      let products = collection.products.filter(function(product){ return product.handle == productId});
+      console.log(products)
+      this.products = products[0];
+      this.description = products[0].descriptionHtml;
+      this.title = products[0].title;
+      this.options.format = products[0].options[0].values;
+      this.options.depth = products[0].options[1].values;
+      this.options.border = products[0].options[2].values;
       // this.images = products.images.src
       // console.log(products.variants[12].title)
 

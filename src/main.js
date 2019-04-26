@@ -34,7 +34,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', component: front },
-    { path: '/product', component: product },
+    { path: '/product/:collectionid/:productid', component: product },
     { path: '/cart', component: cart },
 
   ]

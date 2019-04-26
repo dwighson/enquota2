@@ -8,13 +8,15 @@
     <div class="logo"></div>
     <ul class="navlist">
       <span class="navwrap">
-        <router-link  tag="li" to="/">Shop</router-link>
+        <router-link tag="li" to="/">Shop</router-link>
         <li>over ons</li>
         <li>Contact</li>
         <li>testimonials</li>
 
-               <router-link tag="li" to="/cart" class="cart"><div class="carticon"></div></router-link>
-
+        <router-link tag="li" to="/cart" class="cart">
+          <div class="carticon"></div>
+        </router-link>
+        <li>({{cartitems}})</li>
       </span>
     </ul>
   </div>
@@ -24,16 +26,35 @@
 export default {
   data() {
     return {
-      close: false
-    }
+      cartitems: 0,
+      close: false,
+      checkoutid: localStorage.getItem("checkoutid")
+    };
   },
   methods: {
     closebanner() {
-      this.close =! this.close
+      this.close = !this.close;
+    }
+  },
+
+  computed: {
+    getCartItems() {
+      return 6;
     }
   },
   mounted() {
+    let checkid = this.checkoutid;
+    this.$shopify.checkout.fetch(checkid).then(checkout => {
+      var counter = 0
+      for (let x = 0; x <= checkout.lineItems.length; x++) {
+        counter =+ checkout.lineItems[x].quantity
+      //   if(x == checkout.lineItems.length) {
+      // console.log(counter)
 
+      //   }
+      }
+      // console.log(checkout.lineItems);
+    });
   }
 };
 </script>
@@ -57,7 +78,7 @@ export default {
   color: white;
   line-height: 50px;
   position: relative;
-  background: #22E7AF;
+  background: #22e7af;
 }
 .closeBanner {
   position: absolute;
