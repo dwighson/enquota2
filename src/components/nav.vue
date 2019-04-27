@@ -16,7 +16,7 @@
         <router-link tag="li" to="/cart" class="cart">
           <div class="carticon"></div>
         </router-link>
-        <li>({{getCartItems}})</li>
+        <!-- <li>({{getCartItems}})</li> -->
       </span>
     </ul>
   </div>
@@ -75,7 +75,7 @@ export default {
 </script>
 <style  scoped>
 .nav {
-  position: fixed;
+  /* position: fixed; */
   background: white;
   top: 0;
   left: 0;

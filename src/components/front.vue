@@ -1,12 +1,12 @@
 <template>
   <div class="front">
     <newstock/>
-    <p>Shop</p>
+    <h1>Shop</h1>
     <allcollections/>
-    <testimonials/>
+    <!-- <testimonials/> -->
     <div class="aboutuswrap">
       <aboutus/>
-      <instagram/>
+      <!-- <instagram/> -->
     </div>
     <shipping/>
     <contact/>
@@ -43,5 +43,9 @@ export default {
   text-align: center;
   width: 100%;
   min-height: 600px;
+}
+h1 {
+  margin-left: 80px;
+  margin-top: 40px;
 }
 </style>

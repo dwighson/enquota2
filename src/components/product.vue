@@ -1,6 +1,5 @@
 <template>
   <div class="product">
-    
     <div class="slider">
       <div class="carousel"></div>
       <div class="carouselnav"></div>
@@ -13,7 +12,9 @@
 
       <div class="price">&euro;75,00</div>
       <hr>
-      <div class="formaat">Formaat:</div>
+      <div class="formaat">
+        <b>Formaat:</b>
+      </div>
       <p>afmetingen zijn in centimeters</p>
       <div class="formaten">
         <div
@@ -49,6 +50,7 @@
         </div>
         <button v-on:click="addtocart">in mijn winkelmandje</button>
       </div>
+      <p>Veilig en makkelijk betalen met:</p>
     </div>
   </div>
 </template>
@@ -75,8 +77,7 @@ export default {
       collectionId: "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzEyOTMyMjQ1MTAyMg",
       chosenvariant: "",
       products: null,
-      checkoutid:
-        ""
+      checkoutid: ""
     };
   },
   methods: {
@@ -123,26 +124,54 @@ export default {
     },
     addtocart() {
       let chosenvariant = this.chosenvariant;
-      let snapshot = this.options
+      let snapshot = this.options;
       let variantobj = this.products.variants.filter(function(variant) {
         return variant.title == chosenvariant;
       });
-      
-      const lineItemsToAdd = [
-        {
-          variantId: variantobj[0].id,
-          quantity: this.amount,
-          customAttributes: [{key: "MyKey", value: JSON.stringify(snapshot)}]
-        }
-      ];
-      console.log(lineItemsToAdd);
-      // Add an item to the checkout
-      this.$shopify.checkout
-        .addLineItems(this.checkoutid, lineItemsToAdd)
-        .then(checkout => {
-          // Do something with the updated checkout
-          console.log(checkout.lineItems); // Array with one additional line item
-        });
+
+      if (typeof variantobj[0].id == "undefined") {
+        alert("Variant niet beschikbaar!");
+      } else {
+        const lineItemsToAdd = [
+          {
+            variantId: variantobj[0].id,
+            quantity: this.amount,
+            customAttributes: [
+              { key: "MyKey", value: JSON.stringify(snapshot) }
+            ]
+          }
+        ];
+        console.log(lineItemsToAdd);
+        // Add an item to the checkout
+        this.$shopify.checkout
+          .addLineItems(this.checkoutid, lineItemsToAdd)
+          .then(checkout => {
+            // Do something with the updated checkout
+            console.log(checkout.lineItems); // Array with one additional line item
+          });
+      }
+
+      // if (typeof variantobj[0].id == 'undefined') {
+      //   alert("gekozen variant is niet beschikbaar!");
+      // } else {
+      //   const lineItemsToAdd = [
+      //     {
+      //       variantId: variantobj[0].id,
+      //       quantity: this.amount,
+      //       customAttributes: [
+      //         { key: "MyKey", value: JSON.stringify(snapshot) }
+      //       ]
+      //     }
+      //   ];
+      //   console.log(lineItemsToAdd);
+      //   // Add an item to the checkout
+      //   this.$shopify.checkout
+      //     .addLineItems(this.checkoutid, lineItemsToAdd)
+      //     .then(checkout => {
+      //       // Do something with the updated checkout
+      //       console.log(checkout.lineItems); // Array with one additional line item
+      //     });
+      // }
     }
   },
   mounted() {
@@ -156,7 +185,7 @@ export default {
 
     $(".carouselnav").slick({
       lazyLoad: "ondemand",
-      slidesToShow: 4,
+      slidesToShow: 5,
       dots: false,
       arrows: false,
       asNavFor: ".carousel",
@@ -165,42 +194,50 @@ export default {
     });
 
     const collectionId = this.$route.params.collectionid;
-    console.log(collectionId)
-    const productId = this.$route.params.productid
-    this.$shopify.collection.fetchWithProducts(collectionId).then(collection => {
-      let products = collection.products.filter(function(product){ return product.handle == productId});
-      console.log(products)
-      this.products = products[0];
-      this.description = products[0].descriptionHtml;
-      this.title = products[0].title;
-      this.options.format = products[0].options[0].values;
-      this.options.depth = products[0].options[1].values;
-      this.options.border = products[0].options[2].values;
-      // this.images = products.images.src
-      // console.log(products.variants[12].title)
+    console.log(collectionId);
+    const productId = this.$route.params.productid;
+    this.$shopify.collection
+      .fetchWithProducts(collectionId)
+      .then(collection => {
+        let products = collection.products.filter(function(product) {
+          return product.handle == productId;
+        });
+        console.log(products);
+        this.products = products[0];
+        this.description = products[0].descriptionHtml;
+        this.title = products[0].title;
+        this.options.format = products[0].options[0].values;
+        this.options.depth = products[0].options[1].values;
+        this.options.border = products[0].options[2].values;
+        // this.images = products.images.src
+        // console.log(products.variants[12].title)
 
-      // console.log(variantobj[0].id);
-      let imgg = this.images;
-      for (let i = 0; i <= products[0].images.length - 1; i++) {
-        // console.log(products.images[i].src)
-        imgg.push(products[0].images[i].src);
+        // console.log(variantobj[0].id);
+        let imgg = this.images;
+        for (let i = 0; i <= products[0].images.length - 1; i++) {
+          // console.log(products.images[i].src)
+          imgg.push(products[0].images[i].src);
 
-        if (i == products[0].images.length - 1) {
-          for (let x = 0; x <= imgg.length - 1; x++) {
-            $(".carousel").slick(
-              "slickAdd",
-              "<div class='slide'><img draggable'false' data-lazy=" + imgg[x] + "/></div>"
-            );
+          if (i == products[0].images.length - 1) {
+            for (let x = 0; x <= imgg.length - 1; x++) {
+              $(".carousel").slick(
+                "slickAdd",
+                "<div class='slide'><img draggable'false' data-lazy=" +
+                  imgg[x] +
+                  "/></div>"
+              );
 
-            $(".carouselnav").slick(
-              "slickAdd",
-              "<div class='slide'><img draggable'false' data-lazy=" + imgg[x] + "/></div>"
-            );
+              $(".carouselnav").slick(
+                "slickAdd",
+                "<div class='slide'><img draggable'false' data-lazy=" +
+                  imgg[x] +
+                  "/></div>"
+              );
+            }
           }
         }
-      }
-    });
-    this.checkoutid = localStorage.getItem('checkoutid')
+      });
+    this.checkoutid = localStorage.getItem("checkoutid");
 
     this.chosenvariant = "30x40 / 2 cm / geen lijst";
   }
@@ -217,17 +254,19 @@ export default {
   min-height: 800px;
   width: calc(50% - 20px);
   min-width: 350px;
-  max-width: 500px;
+  max-width: 800px;
   display: inline-block;
   vertical-align: top;
 }
 .productinfo {
   min-height: 800px;
   text-align: left;
-  width: calc(50% - 20px);
+  width: calc(50% - 150px);
   min-width: 350px;
-  max-width: 500px;
+  /* max-width: 500px; */
   display: inline-block;
+  padding: 20px;
+  box-sizing: border-box;
   vertical-align: top;
 }
 .title {
@@ -238,34 +277,48 @@ export default {
   background: black;
   color: white !important;
 }
+.lijst {
+  min-height: 100px;
+}
 .carousel {
-  width: 400px;
+  width: calc(100% - 100px);
+  max-width: 560px;
 
   overflow: hidden;
-  height: 400px;
+  margin: 0 auto;
+  height: 560px;
 }
 .carousel .slide {
-  height: 400px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   min-height: 400px;
 }
 .slide img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
   object-position: 50% 50%;
   user-select: none;
-  user-drag: none; 
+}
+.description {
+  padding: 20px 0px 20px 0px;
+  text-align: justify;
+  font-size: 20px;
+}
+.productinfo .price {
+  font-size: 48px;
 }
 .carouselnav {
   height: 100px;
-  width: 400px;
+  width: 555px;
+  margin: 0 auto;
 }
 .carouselnav .slide {
-  height: 90px !important;
+  min-height: 90px;
   overflow: hidden;
 
-  width: 90px;
+  min-width: 90px;
 }
 
 .carouselnav .slick-slide {
@@ -275,16 +328,54 @@ export default {
   height: 150px;
   width: 100%;
   margin-bottom: 20px;
+  display: flex;
+}
+.formaat b {
+  font-size: 21px;
 }
 .formats {
   height: 140px;
-  margin: 5px;
+  margin: 10px;
   width: 100px;
   text-align: center;
   line-height: 140px;
   color: black;
-  float: left;
+  flex: 1;
+  /* float: left; */
   border: 2px solid black;
+}
+.formats:first-of-type {
+  max-width: 100px;
+  height: 50px;
+  line-height: 50px;
+}
+.formats:nth-of-type(2) {
+  max-width: 135px;
+  height: 70px;
+  line-height: 70px;
+}
+.formats:nth-of-type(3) {
+  max-width: 150px;
+  height: 90px;
+  line-height: 80px;
+  position: relative;
+  border: 2px solid red;
+}
+.formats:nth-of-type(3)::before {
+  content: "Meest gekozen";
+  color: white;
+  line-height: 20px;
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  background: red;
+  bottom: 0;
+  left: 0;
+}
+.formats:nth-of-type(4) {
+  max-height: 100px;
+  line-height: 100px;
+  max-width: 200px;
 }
 .diepte {
   width: 100%;
@@ -297,7 +388,7 @@ export default {
   border: 2px solid black;
   margin: 5px;
 
-  width: 100px;
+  width: 80px;
   float: left;
 }
 .border {
@@ -312,7 +403,7 @@ export default {
 }
 .addtocart {
   outline: 2px solid black;
-  margin: 5px;
+  margin: 30px 0px 40px 0px;
 
   height: 60px;
   width: 100%;

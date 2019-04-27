@@ -9,12 +9,7 @@
           </div>
           {{collection.title}}
         </li>
-        <li v-for="i in 30">
-          <div class="checkbox">
-            <!-- <div class="checked"></div> -->
-          </div>
-          collection name
-        </li>
+     
       </ul>
     </div>
     <div class="collections">
@@ -66,13 +61,20 @@ export default {
     }
   },
   methods: {
+    newcollection() {
+      let newcollection = this.collections.filter(function(newcollect) {
+        return newcollect.handle == "nieuw";
+      });
+      return newcollection[0];
+    },
     selectCollection(index) {
       this.selectedCollection = index;
     },
     gotoproduct(product) {
       let collectionhandle = this.collections[this.selectedCollection].id;
-      console.log(collectionhandle);
       let producthandle = product.handle;
+
+      console.log();
       this.$router.push("product/" + collectionhandle + "/" + producthandle);
     }
   },
@@ -82,7 +84,6 @@ export default {
 
 <style scoped>
 .allcollections {
-  padding-top: 100px;
   display: flex;
   width: calc(100% - 100px);
   margin: 0 auto;
@@ -123,7 +124,7 @@ ul {
   flex: 1;
   min-height: 500px;
   max-height: 800px;
-  overflow-Y: auto;
+  overflow-y: auto;
 
   text-align: center;
 }

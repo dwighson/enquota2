@@ -1,10 +1,14 @@
 <template>
   <div class="cartpage">
-    <button>doorgaan met shoppen!</button>
-    <h1>Winkelwagen</h1>
     <ul class="cartitem">
-      <li v-for="(item, i) in checkoutobj" v-bind:key="i">
-        <div class="thumbnail"></div>
+      <button>doorgaan met shoppen!</button>
+      <h1>Winkelwagen</h1>
+
+      <hr>
+      <li v-for="(item, x) in checkoutobj" v-bind:key="x">
+        <div class="thumbnail">
+          <img v-bind:src="item.variant.image.src" alt>
+        </div>
         <div class="iteminfo">
           <p class="title">
             {{item.title}}
@@ -12,41 +16,55 @@
           </p>
 
           <div class="aantal dropdownwrap">
-            <button class="optionbutton">{{item.quantity}}</button>
-            <ul
-              class="dropdown"
-              style="display: none;"
-              v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
-            >
-              <li>{{option}}</li>
-            </ul>
+            <p>Aantal:</p>
+            <div class="custom-select">
+              <select name id>
+                <option value>2</option>
+              </select>
+            </div>
           </div>
           <div class="formaat dropdownwrap">
-            <button class="optionbutton">20x40</button>
-            <ul class="dropdown" style="display: none;">
-              <li
-                v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
-              >{{option}}</li>
-            </ul>
+            <p>formaat:</p>
+            <div class="custom-select">
+              <select name id>
+                <option value="1">30x40</option>
+
+                <option
+                  v-bind:value="i"
+                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
+                  v-bind:key="i"
+                >{{option}}</option>
+              </select>
+            </div>
           </div>
           <div class="diepte dropdownwrap">
-            <button class="optionbutton">2 cm</button>
-            <ul class="dropdown" style="display: none;">
-              <li
-                v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).depth"
-              >{{option}}</li>
-            </ul>
+            <p>Diepte:</p>
+            <div class="custom-select">
+              <select name id>
+                <option value="1">2 cm</option>
+
+                <option
+                  v-bind:value="i + 1"
+                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes, i).depth"
+                  v-bind:key="i"
+                >{{option}}</option>
+              </select>
+            </div>
           </div>
           <div class="lijst dropdownwrap">
-            <button class="optionbutton">geen lijst</button>
-            <ul class="dropdown" style="display: none;">
-              <li
-                v-for="option in fetchproduct(item.variant.product.id, item.customAttributes, i).border"
-              >{{option}}</li>
-            </ul>
+            <p>Lijst</p>
+            <div class="custom-select">
+              <select name id>
+                <option value="1">met lijst</option>
+                <option
+                  v-bind:value="i + 1"
+                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes, i).border"
+                  v-bind:key="i"
+                >{{option}}</option>
+              </select>
+            </div>
           </div>
-
-          <p v-on:click="removeproduct(item.id)">verwijder product</p>
+          <p class="deleteitem" v-on:click="removeproduct(item.id)">verwijder product &times;</p>
         </div>
       </li>
     </ul>
@@ -153,51 +171,88 @@ export default {
         //   // console.log(product);
         // });
       }
-      // console.log(this.checkoutobj[0].variant.product.id);
 
-      // console.log(this.checkoutobj)
-      $(document).ready(function() {
-        setTimeout(() => {
-          $("body").on("click", ".optionbutton", function(e) {
-            $(this)
-              .parent()
-              .find("ul.dropdown");
-            let dropdown = $(this)
-              .parent()
-              .find("ul.dropdown");
-
-
-            if (dropdown.css("display") == "none") {
-              dropdown.css({
-                display: "block"
-              });
+      setTimeout(function() {
+        var x, i, j, selElmnt, a, b, c;
+        /*look for any elements with the class "custom-select":*/
+        x = document.getElementsByClassName("custom-select");
+        for (i = 0; i < x.length; i++) {
+          selElmnt = x[i].getElementsByTagName("select")[0];
+          /*for each element, create a new DIV that will act as the selected item:*/
+          a = document.createElement("DIV");
+          a.setAttribute("class", "select-selected");
+          a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+          x[i].appendChild(a);
+          /*for each element, create a new DIV that will contain the option list:*/
+          b = document.createElement("DIV");
+          b.setAttribute("class", "select-items select-hide");
+          for (j = 1; j < selElmnt.length; j++) {
+            /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+            c = document.createElement("DIV");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function(e) {
+              /*when an item is clicked, update the original select box,
+        and the selected item:*/
+              var y, i, k, s, h;
+              s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+              h = this.parentNode.previousSibling;
+              for (i = 0; i < s.length; i++) {
+                if (s.options[i].innerHTML == this.innerHTML) {
+                  s.selectedIndex = i;
+                  h.innerHTML = this.innerHTML;
+                  y = this.parentNode.getElementsByClassName(
+                    "same-as-selected"
+                  );
+                  for (k = 0; k < y.length; k++) {
+                    y[k].removeAttribute("class");
+                  }
+                  this.setAttribute("class", "same-as-selected");
+                  break;
+                }
+              }
+              h.click();
+            });
+            b.appendChild(c);
+          }
+          x[i].appendChild(b);
+          a.addEventListener("click", function(e) {
+            /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+          });
+        }
+        function closeAllSelect(elmnt) {
+          /*a function that will close all select boxes in the document,
+  except the current select box:*/
+          var x,
+            y,
+            i,
+            arrNo = [];
+          x = document.getElementsByClassName("select-items");
+          y = document.getElementsByClassName("select-selected");
+          for (i = 0; i < y.length; i++) {
+            if (elmnt == y[i]) {
+              arrNo.push(i);
             } else {
-              dropdown.css({
-                display: "none"
-              });
+              y[i].classList.remove("select-arrow-active");
             }
-          });
-
-          $("body").on("click", ".dropdown li", function(e) {
-
-            
-            let index = $(this).index();
-            let text = $(this).text();
-            $(this)
-              .parent()
-              .parent()
-              .find(".optionbutton")
-              .text(text);
-            // console.log($(this).parent()[0]);
-            $(this)
-              .parent()
-              .css({
-                display: "none"
-              });
-          });
-        }, 1000);
-      });
+          }
+          for (i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+              x[i].classList.add("select-hide");
+            }
+          }
+        }
+        /*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+        document.addEventListener("click", closeAllSelect);
+      }, 1000);
     });
+
     console.log(this.checkoutobj);
   }
 };
@@ -208,28 +263,46 @@ export default {
   min-height: 500px;
   width: 100%;
   text-align: center;
-  background: #f0f0f0;
 }
 ul.cartitem {
   display: inline-block;
+  text-align: left;
   padding: 0;
 }
 .cartitem li {
   display: flex;
   margin: 10px;
   text-align: left;
-  width: 700px;
+  width: 800px;
+  height: 270px;
 }
 .thumbnail {
-  height: 250px;
-  min-width: 250px;
+  height: 270px;
+  min-width: 270px;
+  max-width: 270px;
   background: black;
 }
+.thumbnail img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
 .iteminfo {
-  background: grey;
   min-width: 300px;
-  padding: 20px;
+  position: relative;
+  padding: 0px 20px;
   box-sizing: border-box;
+}
+.iteminfo .deleteitem {
+  position: absolute;
+  bottom: 0px;
+  left: 30px;
+}
+.iteminfo .title {
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
 }
 p {
   font-size: 20px;
@@ -238,10 +311,10 @@ p {
 .total {
   display: inline-block;
   margin: 10px;
+  visibility: hidden;
   vertical-align: top;
   height: 400px;
   width: 500px;
-  background: purple;
 }
 .dropdown {
   padding: 0;
@@ -254,8 +327,15 @@ p {
   width: 140px;
   margin: 0;
 }
+.dropdownwrap p {
+  padding: 0;
+  margin: 0;
+}
 .dropdownwrap {
-  float: left; 
+  float: left;
+  width: 150px;
+  margin: 5px;
+  max-height: 70px;
   position: relative;
 }
 .dropdown li {

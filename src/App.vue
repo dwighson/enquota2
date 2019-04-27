@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <navbar/>
-    <transition name="fade">
-      <router-view/>
-    </transition>
-    <footerlinks/>
+    <div class="container">
+      <transition name="fade">
+        <router-view/>
+      </transition>
+      <footerlinks/>
+    </div>
   </div>
 </template>
 
@@ -14,7 +16,7 @@ import products from "./components/products";
 import footerlinks from "./components/footerlinks";
 export default {
   name: "App",
-  components: { navbar, products, footerlinks },
+  components: { navbar, footerlinks },
   mounted() {
     // localStorage.removeItem('checkoutid')
     // console.log(localStorage.getItem('checkoutid'))
@@ -119,14 +121,19 @@ body {
   /* outline:1px solid red; */
 }
 #app {
-  padding-top: 230px;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-right: 13px;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
 }
 
+.container {
+  flex: 1;
+  overflow: auto;
+}
 /* ::-webkit-scrollbar-button { 
   display: block; 
   height: 13px; 
@@ -165,6 +172,8 @@ body {
   position: relative;
   font-family: Arial;
   float: left;
+  border: 1px solid black;
+  width: 150px;
 }
 
 .custom-select select {
@@ -172,7 +181,9 @@ body {
 }
 
 .select-selected {
-  background-color: DodgerBlue;
+  color: black;
+  background: white;
+  /* background-color: DodgerBlue; */
 }
 
 /*style the arrow inside the select element:*/
@@ -184,7 +195,7 @@ body {
   width: 0;
   height: 0;
   border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
+  border-color: #25ceff transparent transparent transparent;
 }
 
 /*point the arrow upwards when the select box is open (active):*/
@@ -196,9 +207,9 @@ body {
 /*style the items (options), including the selected item:*/
 .select-items div,
 .select-selected {
-  color: #ffffff;
+  color: black;
   padding: 8px 16px;
-  border: 1px solid transparent;
+  border: 1px solid black;
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
   user-select: none;
@@ -207,7 +218,7 @@ body {
 /*style items (options):*/
 .select-items {
   position: absolute;
-  background-color: DodgerBlue;
+  background-color: white;
   top: 100%;
   left: 0;
   right: 0;

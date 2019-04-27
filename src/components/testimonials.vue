@@ -1,8 +1,11 @@
 <template>
   <div class="testimonials">
-    <div v-for="i in 10" v-bind:key="i">
-      <div class="card">
-        <div class="pic"></div>
+    <h1>testimonials</h1>
+    <div class="wrap">
+      <div v-for="i in 10" v-bind:key="i">
+        <div class="card">
+          <div class="pic"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -12,7 +15,7 @@ import $ from "jquery";
 import slick from "slick-carousel";
 export default {
   mounted() {
-    $(".testimonials").slick({
+    $(".wrap").slick({
       slidesToShow: 3,
       slidesToScroll: 1,
       swipeToSlide: true,
@@ -28,9 +31,10 @@ export default {
 .testimonials {
   height: 330px;
   width: calc(100% - 100px);
+  text-align: center;
   margin: 0 auto;
-  padding-top: 65px;
-  background: #F7F7F7;
+  padding-top: 25px;
+  background: #f7f7f7;
 }
 .testimonials .card {
   height: 200px;
@@ -52,6 +56,7 @@ export default {
   min-height: 10px;
   margin: 0 auto;
 }
+
 .card .pic {
   height: 130px;
   width: 130px;
