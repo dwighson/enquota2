@@ -40,9 +40,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .instagram {
   margin: 5px;
+  background: pink;
   max-width: 850px;
   vertical-align: top;
   display: inline-block;

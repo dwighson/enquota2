@@ -181,11 +181,11 @@ export default {
 
       // console.log(variantobj[0].id);
       let imgg = this.images;
-      for (let i = 0; i <= products.images.length - 1; i++) {
+      for (let i = 0; i <= products[0].images.length - 1; i++) {
         // console.log(products.images[i].src)
-        imgg.push(products.images[i].src);
+        imgg.push(products[0].images[i].src);
 
-        if (i == products.images.length - 1) {
+        if (i == products[0].images.length - 1) {
           for (let x = 0; x <= imgg.length - 1; x++) {
             $(".carousel").slick(
               "slickAdd",

@@ -1,6 +1,7 @@
 <template>
   <div class="front">
     <newstock/>
+    <p>Shop</p>
     <allcollections/>
     <testimonials/>
     <div class="aboutuswrap">

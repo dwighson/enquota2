@@ -9,6 +9,12 @@
           </div>
           {{collection.title}}
         </li>
+        <li v-for="i in 30">
+          <div class="checkbox">
+            <!-- <div class="checked"></div> -->
+          </div>
+          collection name
+        </li>
       </ul>
     </div>
     <div class="collections">
@@ -18,13 +24,24 @@
         v-for="(product, i) in  collections[selectedCollection].products"
         v-bind:key="i"
       >
-        <div class="thumbnail"><img v-bind:src="product.images[0].src" alt=""></div>
+        <div class="thumbnail">
+          <img v-bind:src="product.images[0].src" alt>
+          <div class="newtag">NIEUW</div>
+        </div>
         <div class="titleAndPrice">
           <div class="title">{{product.title}}</div>
           <div class="price">&euro;{{product.variants[0].price}},-</div>
         </div>
       </div>
-      
+      <div class="item" v-for="i in 20" v-bind:key="i">
+        <div class="thumbnail">
+          <div class="newtag">NIEUW</div>
+        </div>
+        <div class="titleAndPrice">
+          <div class="title">product title</div>
+          <div class="price">&euro;75,-</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +71,7 @@ export default {
     },
     gotoproduct(product) {
       let collectionhandle = this.collections[this.selectedCollection].id;
-      console.log(collectionhandle)
+      console.log(collectionhandle);
       let producthandle = product.handle;
       this.$router.push("product/" + collectionhandle + "/" + producthandle);
     }
@@ -74,10 +91,11 @@ export default {
   flex: 1;
   margin: 20px;
   min-height: 500px;
+  max-height: 600px;
   padding: 10px 0px 0px 25px;
   box-sizing: border-box;
   max-width: 350px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 .checkbox {
   height: 20px;
@@ -89,6 +107,9 @@ export default {
 
 ul {
   padding: 0px;
+  height: calc(100% - 100px);
+  overflow: auto;
+
   margin: 0px;
 }
 .checkbox .checked {
@@ -101,6 +122,9 @@ ul {
   margin: 20px;
   flex: 1;
   min-height: 500px;
+  max-height: 800px;
+  overflow-Y: auto;
+
   text-align: center;
 }
 .collections .item {
@@ -116,6 +140,8 @@ ul {
 .titleAndPrice .title {
   flex: 1;
   text-align: left;
+  font-size: 18px;
+  font-weight: normal;
 }
 .filter li {
   display: flex;
@@ -124,13 +150,23 @@ ul {
 .item .thumbnail {
   height: 295px;
   width: 295px;
+  position: relative;
   background: #f6f6f6;
   margin: 0px 5px 5px 5px;
+}
+.thumbnail .newtag {
+  height: 25px;
+  width: 90px;
+  color: white;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: #22e7af;
 }
 .thumbnail img {
   height: 100%;
   width: 100%;
+
   object-fit: cover;
-  
 }
 </style>

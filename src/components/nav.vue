@@ -16,7 +16,7 @@
         <router-link tag="li" to="/cart" class="cart">
           <div class="carticon"></div>
         </router-link>
-        <li>({{cartitems}})</li>
+        <li>({{getCartItems}})</li>
       </span>
     </ul>
   </div>
@@ -39,26 +39,41 @@ export default {
 
   computed: {
     getCartItems() {
-      return 6;
+      let checkid = this.checkoutid;
+
+      var counter = 0;
+      this.$shopify.checkout.fetch(checkid).then(checkout => {
+        for (let x = 0; x <= checkout.lineItems.length - 1; x++) {
+          counter = counter + checkout.lineItems[x].quantity;
+
+          if (x == checkout.lineItems.length - 1) {
+            console.log(counter);
+            this.cartitems = counter
+          }
+        }
+        // console.log(checkout.lineItems);
+      });
+      return this.cartitems;
     }
   },
   mounted() {
     let checkid = this.checkoutid;
-    this.$shopify.checkout.fetch(checkid).then(checkout => {
-      var counter = 0
-      for (let x = 0; x <= checkout.lineItems.length; x++) {
-        counter =+ checkout.lineItems[x].quantity
-      //   if(x == checkout.lineItems.length) {
-      // console.log(counter)
+    // this.$shopify.checkout.fetch(checkid).then(checkout => {
+    //   var counter = 0;
+    //   for (let x = 0; x <= checkout.lineItems.length - 1; x++) {
+    //     counter = counter + checkout.lineItems[x].quantity;
 
-      //   }
-      }
-      // console.log(checkout.lineItems);
-    });
+    //     if (x == checkout.lineItems.length - 1) {
+    //       console.log(counter);
+    //     }
+    //   }
+
+    //   // console.log(checkout.lineItems);
+    // });
   }
 };
 </script>
-<style >
+<style  scoped>
 .nav {
   position: fixed;
   background: white;
