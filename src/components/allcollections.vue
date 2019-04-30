@@ -71,7 +71,7 @@ export default {
       this.selectedCollection = index;
     },
     gotoproduct(product) {
-      let collectionhandle = this.collections[this.selectedCollection].id;
+      let collectionhandle = this.collections[this.selectedCollection].handle;
       let producthandle = product.handle;
 
       console.log();

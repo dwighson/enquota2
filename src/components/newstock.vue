@@ -46,6 +46,7 @@ export default {
 .newstock h1 {
   font-size: 64px;
   color: black;
+  margin-top: 0;
   text-transform: capitalize;
 }
 .newstockitem {
