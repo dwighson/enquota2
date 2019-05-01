@@ -55,6 +55,7 @@
   </div>
 </template>
 <script>
+// eslint-disable-next-line
 import slick from "slick-carousel";
 import "slick-carousel/slick/slick.css";
 import $ from "jquery";
@@ -91,7 +92,6 @@ export default {
       let query = format + " / " + depth + " / " + border;
 
       this.chosenvariant = query;
-      console.log(this.chosenvariant);
     },
     selectdepth(index) {
       this.selecteddepth = index;
@@ -102,8 +102,6 @@ export default {
       let query = format + " / " + depth + " / " + border;
 
       this.chosenvariant = query;
-
-      console.log(this.chosenvariant);
     },
     selectborder(index) {
       this.selectedborder = index;
@@ -113,7 +111,7 @@ export default {
       let border = this.options.border[index];
       let query = format + " / " + depth + " / " + border;
 
-      console.log(this.chosenvariant);
+      this.chosenvariant = query;
     },
     add() {
       this.amount++;
@@ -122,6 +120,9 @@ export default {
       if (this.amount >= 2) {
         this.amount--;
       }
+    },
+    changeprice() {
+      
     },
     addtocart() {
       let chosenvariant = this.chosenvariant;
@@ -133,23 +134,20 @@ export default {
       if (typeof variantobj[0] == "undefined") {
         alert("Variant niet beschikbaar!");
       } else {
+        let encodeddata = window.btoa(JSON.stringify(snapshot));
+
         const lineItemsToAdd = [
           {
             variantId: variantobj[0].id,
             quantity: this.amount,
-            customAttributes: [
-              { key: "MyKey", value: JSON.stringify(snapshot) }
-            ]
+            customAttributes: [{ key: "MyKey", value: encodeddata }]
           }
         ];
-        console.log(lineItemsToAdd);
-        // Add an item to the checkout
         this.$shopify.checkout
           .addLineItems(this.checkoutid, lineItemsToAdd)
-          .then(checkout => {
-            // Do something with the updated checkout
-            console.log(checkout.lineItems); // Array with one additional line item
-          });
+          // .then(checkout => {
+          //   // Do something with the updated checkout
+          // });
       }
 
       // if (typeof variantobj[0].id == 'undefined') {
@@ -164,13 +162,11 @@ export default {
       //       ]
       //     }
       //   ];
-      //   console.log(lineItemsToAdd);
       //   // Add an item to the checkout
       //   this.$shopify.checkout
       //     .addLineItems(this.checkoutid, lineItemsToAdd)
       //     .then(checkout => {
       //       // Do something with the updated checkout
-      //       console.log(checkout.lineItems); // Array with one additional line item
       //     });
       // }
     }
@@ -197,54 +193,48 @@ export default {
 
     const collectionId = this.$route.params.collectionid;
 
-    const collId = this.$shopify.collection
-      .fetchAllWithProducts()
-      .then(collections => {
-        let id = collections.find(function(singlecollection) {
-          return singlecollection.handle == collectionId;
-        }).id;
-        console.log(id);
-        const productId = this.$route.params.productid;
-        this.$shopify.collection.fetchWithProducts(id).then(collection => {
-          let products = collection.products.filter(function(product) {
-            return product.handle == productId;
-          });
+    this.$shopify.collection.fetchAllWithProducts().then(collections => {
+      let id = collections.find(function(singlecollection) {
+        return singlecollection.handle == collectionId;
+      }).id;
+      const productId = this.$route.params.productid;
+      this.$shopify.collection.fetchWithProducts(id).then(collection => {
+        let products = collection.products.filter(function(product) {
+          return product.handle == productId;
+        });
 
-          console.log(products);
-          this.products = products[0];
-          this.description = products[0].descriptionHtml;
-          this.title = products[0].title;
-          this.options.format = products[0].options[0].values;
-          this.options.depth = products[0].options[1].values;
-          this.options.border = products[0].options[2].values;
-          // this.images = products.images.src
-          // console.log(products.variants[12].title)
-          let imgg = this.images;
+        this.products = products[0];
+        this.description = products[0].descriptionHtml;
+        this.title = products[0].title;
+        this.options.format = products[0].options[0].values;
+        this.options.depth = products[0].options[1].values;
+        this.options.border = products[0].options[2].values;
+        // this.images = products.images.src
+        let imgg = this.images;
 
-          // console.log(variantobj[0].id);
-          for (let i = 0; i <= products[0].images.length - 1; i++) {
-            // console.log(products.images[i].src)
-            imgg.push(products[0].images[i].src);
-            if (i == products[0].images.length - 1) {
-              for (let x = imgg.length - 1; x >= 0; x--) {
-                console.log(imgg[x]);
-                setTimeout(function() {
-                  $(".carousel").slick(
-                             "slickAdd",
-                      "<div class='slide' style='background: url(" + imgg[x] + ") no-repeat center center; background-size: cover; '><span>"+ x +"</span></div>"
-                  );
-                   $(".carouselnav").slick(
-                        "slickAdd",
-                      "<div class='slide' style='background: url(" + imgg[x] + ") no-repeat center center; background-size: cover; '><span>"+ x +"</span></div>"
-                      
-                      );
-                }, 500);
-          
-              }
+        for (let i = 0; i <= products[0].images.length - 1; i++) {
+          imgg.push(products[0].images[i].src);
+          if (i == products[0].images.length - 1) {
+            for (let x = imgg.length - 1; x >= 0; x--) {
+              setTimeout(function() {
+                $(".carousel").slick(
+                  "slickAdd",
+                  "<div class='slide' style='background: url(" +
+                    imgg[x] +
+                    ") no-repeat center center; background-size: cover; '></div>"
+                );
+                $(".carouselnav").slick(
+                  "slickAdd",
+                  "<div class='slide' style='background: url(" +
+                    imgg[x] +
+                    ") no-repeat center center; background-size: cover; '></div>"
+                );
+              }, 500);
             }
           }
-        });
+        }
       });
+    });
 
     this.checkoutid = localStorage.getItem("checkoutid");
 
@@ -339,9 +329,9 @@ export default {
   margin: 5px;
 }
 .formaten {
-  height: 150px;
+  height:100px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
 }
 .formaat b {
@@ -356,6 +346,7 @@ export default {
   color: black;
   flex: 1;
   /* float: left; */
+  transition: all .3s ease;
   border: 2px solid black;
 }
 .formats:first-of-type {
@@ -381,7 +372,7 @@ export default {
   line-height: 20px;
   position: absolute;
   height: 20px;
-  width: 100%;
+  width: calc(100% + 1px);
   background: red;
   bottom: 0;
   left: 0;
@@ -401,6 +392,7 @@ export default {
   height: 50px;
   border: 2px solid black;
   margin: 5px;
+  transition: all .3s ease;
 
   width: 80px;
   float: left;
@@ -411,6 +403,7 @@ export default {
   height: 50px;
   border: 2px solid black;
   margin: 5px;
+  transition: all .3s ease;
 
   width: 100px;
   float: left;
@@ -421,6 +414,7 @@ export default {
 
   height: 60px;
   width: 100%;
+  margin: 5px;
   display: flex;
 }
 .addtocart button {

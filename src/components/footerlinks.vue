@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="links">
+    <!-- <div class="links">
       <div class="link">
         <ul>
           <li>FAQ</li>
@@ -9,7 +9,7 @@
           <li>Algemene Voorwaarden</li>
         </ul>
       </div>
-    </div>
+    </div> -->
     <div class="footer"></div>
   </footer>
 </template>
@@ -21,7 +21,7 @@ export default {
 
 <style scoped>
 footer {
-  height: 300px;
+  max-height: 300px;
   width: 100%;
   display: flex;
   flex-direction: column;

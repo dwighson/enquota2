@@ -1,34 +1,75 @@
 <template>
   <div class="newstock">
     <h1>nieuwe canvassen op voorraad</h1>
-    <router-link to="product" v-for="(product,i) in collections.products" v-bind:key="i">
-      <div class="newstockitem">
-        <img v-bind:src="product.images[0].src" alt>
-      </div>
-    </router-link>
+    <div class="stockwrap"></div>
   </div>
 </template>
 <script>
+import $ from "jquery";
+import slick from "slick-carousel";
+import "slick-carousel/slick/slick.css";
 export default {
   data() {
     return {
-      collectionss: []
+      collectionss: [],
+      images: []
     };
   },
   computed: {
     collections() {
-      var coll;
       this.$shopify.collection.fetchAllWithProducts().then(collections => {
         // Do something with the collections
-        // console.log(collections);
-        // console.log(collections[0].products)
         this.collectionss = collections;
       });
       let findnew = this.collectionss.find(function(collect) {
         return collect.handle == "nieuw";
       });
+
       return findnew;
     }
+  },
+  methods: {
+    gotoproduct(product) {
+      let collectionhandle = this.collections.handle;
+
+      let producthandle = product.handle;
+      this.$router.push("product/" + collectionhandle + "/" + producthandle);
+    }
+  },
+  mounted() {
+    $(".stockwrap").slick({
+      // lazyLoad: "ondemand",
+      slidesToShow: 4,
+      dots: false,
+      arrows: false,
+      centerMode: false
+    });
+
+    this.$shopify.collection.fetchAllWithProducts().then(collections => {
+      // Do something with the collections
+      this.collectionss = collections;
+      let imgg = this.images;
+      let findnew = this.collectionss.find(function(collect) {
+        return collect.handle == "nieuw";
+      });
+      console.log(findnew.products);
+      for (let i = 0; i <= findnew.products.length - 1; i++) {
+        console.log("<router-link to='/products/" + findnew.handle + "/" + findnew.products[i].handle +" '>")
+        imgg.push(findnew.products[i].images[0].src);
+        if (i == findnew.products.length - 1) {
+          for (let x = imgg.length - 1; x >= 0; x--) {
+            setTimeout(function() {
+              $(".stockwrap").slick(
+                "slickAdd",
+                "<a href='/product/" + findnew.handle + "/" + findnew.products[i].handle +" '><div class='newstockitem' style='background: url(" +
+                  imgg[x] +
+                  ") no-repeat center center; background-size: cover; '></div> </a>"
+              );
+            }, 500);
+          }
+        }
+      }
+    });
   }
 };
 </script>
@@ -49,11 +90,18 @@ export default {
   margin-top: 0;
   text-transform: capitalize;
 }
+.stockwrap {
+  margin: 0 auto;
+  width: calc(100% - 100px);
+  height: 400px;
+}
+.stockwrap a {
+  display: inline-block;
+}
 .newstockitem {
-  line-height: calc(300px - 30px);
   height: calc(300px - 30px);
-  width: calc(25% - 20px);
-  max-width: 300px;
+  width: calc(100% - 100px);
+  /* max-width: 400px; */
   min-width: 200px;
   position: relative;
   background: white;

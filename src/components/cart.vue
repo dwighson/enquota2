@@ -1,7 +1,7 @@
 <template>
   <div class="cartpage">
     <ul class="cartitem">
-      <button>doorgaan met shoppen!</button>
+      <button v-on:click="gotocheckout">doorgaan met shoppen!</button>
       <h1>Winkelwagen</h1>
 
       <hr>
@@ -31,7 +31,7 @@
 
                 <option
                   v-bind:value="i"
-                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes, i).format"
+                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes).format"
                   v-bind:key="i"
                 >{{option}}</option>
               </select>
@@ -45,7 +45,7 @@
 
                 <option
                   v-bind:value="i + 1"
-                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes, i).depth"
+                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes).depth"
                   v-bind:key="i"
                 >{{option}}</option>
               </select>
@@ -58,7 +58,7 @@
                 <option value="1">met lijst</option>
                 <option
                   v-bind:value="i + 1"
-                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes, i).border"
+                  v-for="(option, i) in fetchproduct(item.variant.product.id, item.customAttributes).border"
                   v-bind:key="i"
                 >{{option}}</option>
               </select>
@@ -93,7 +93,7 @@
   </div>
 </template>
 <script>
-import dropdown from "./dropdown.js";
+// eslint-disable-next-line
 import $ from "jquery";
 import { setTimeout } from "timers";
 export default {
@@ -110,6 +110,12 @@ export default {
   },
 
   methods: {
+    gotocheckout() {
+      let checkid = this.checkoutid;
+      this.$shopify.checkout.fetch(checkid).then(checkout => {
+        window.location.href = checkout.webUrl;
+      });
+    },
     removeproduct(id) {
       const checkoutId = this.checkoutid; // ID of an existing checkout
       const lineItemIdsToRemove = [id];
@@ -117,24 +123,17 @@ export default {
       // Remove an item from the checkout
       this.$shopify.checkout
         .removeLineItems(checkoutId, lineItemIdsToRemove)
-        .then(checkout => {
-          // Do something with the updated checkout
-          console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
-        });
+       
     },
-    fetchproduct(id, custom, key) {
-      // console.log(id);
-      // console.log(key);
-
-      // if (key == 0) {
-      let objj = Object.values(JSON.parse(custom[0].value));
+    fetchproduct(id, custom) {
+      let decodeddata = window.atob(custom[0].value);
+      let objj = Object.values(JSON.parse(decodeddata));
 
       let options = {
         format: [],
         depth: [],
         border: []
       };
-      // console.log(objj[1][0].value);
       for (let i = 0; i <= objj[0].length - 1; i++) {
         options.format.push(objj[0][i].value);
       }
@@ -147,29 +146,16 @@ export default {
 
       return options;
       // this.options.push({objj});
-      // console.log(this.options);
       // }
     }
   },
   mounted() {
-    // console.log(this.cart);
-
     let checkid = this.checkoutid;
     this.$shopify.checkout.fetch(checkid).then(checkout => {
       // Do something with the checkout
       this.checkoutraw = checkout;
-      // console.log(this.checkoutobj);
       for (let i = 0; i <= checkout.lineItems.length - 1; i++) {
         this.checkoutobj.push(checkout.lineItems[i]);
-
-        // console.log(checkout.lineItems[i].variant.title)
-
-        const productId = this.checkoutobj[i].variant.product.id;
-
-        // this.$shopify.product.fetch(productId).then(product => {
-        //   // Do something with the product
-        //   // console.log(product);
-        // });
       }
 
       setTimeout(function() {
@@ -191,7 +177,7 @@ export default {
     create a new DIV that will act as an option item:*/
             c = document.createElement("DIV");
             c.innerHTML = selElmnt.options[j].innerHTML;
-            c.addEventListener("click", function(e) {
+            c.addEventListener("click", function() {
               /*when an item is clicked, update the original select box,
         and the selected item:*/
               var y, i, k, s, h;
@@ -252,8 +238,6 @@ then close all select boxes:*/
         document.addEventListener("click", closeAllSelect);
       }, 1000);
     });
-
-    console.log(this.checkoutobj);
   }
 };
 </script>

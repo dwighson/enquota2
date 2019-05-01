@@ -9,7 +9,6 @@
           </div>
           {{collection.title}}
         </li>
-     
       </ul>
     </div>
     <div class="collections">
@@ -25,18 +24,10 @@
         </div>
         <div class="titleAndPrice">
           <div class="title">{{product.title}}</div>
-          <div class="price">&euro;{{product.variants[0].price}},-</div>
+          <div class="price">&euro;{{product.variants[0].price}}</div>
         </div>
       </div>
-      <div class="item" v-for="i in 20" v-bind:key="i">
-        <div class="thumbnail">
-          <div class="newtag">NIEUW</div>
-        </div>
-        <div class="titleAndPrice">
-          <div class="title">product title</div>
-          <div class="price">&euro;75,-</div>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -50,11 +41,8 @@ export default {
   },
   computed: {
     collections() {
-      var coll;
       this.$shopify.collection.fetchAllWithProducts().then(collections => {
         // Do something with the collections
-        // console.log(collections);
-        // console.log(collections[0].products)
         this.collectionss = collections;
       });
       return this.collectionss;
@@ -67,14 +55,20 @@ export default {
       });
       return newcollection[0];
     },
+    limitedcollection() {
+      let limitedcollection = this.collections.filter(function(limitedcollect) {
+        return limitedcollect.handle == "limited-edition";
+      });
+      return limitedcollection[0];
+    },
     selectCollection(index) {
       this.selectedCollection = index;
+      console.log(this.collections[this.selectedCollection]);
     },
     gotoproduct(product) {
       let collectionhandle = this.collections[this.selectedCollection].handle;
       let producthandle = product.handle;
 
-      console.log();
       this.$router.push("product/" + collectionhandle + "/" + producthandle);
     }
   },
@@ -97,6 +91,9 @@ export default {
   box-sizing: border-box;
   max-width: 350px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 30px;
 }
 .checkbox {
   height: 20px;
@@ -123,8 +120,8 @@ ul {
   margin: 20px;
   flex: 1;
   min-height: 500px;
-  max-height: 800px;
-  overflow-y: auto;
+  /* max-height: 800px; */
+  /* overflow-y: auto; */
 
   text-align: center;
 }

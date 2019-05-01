@@ -22,7 +22,6 @@ if (!localStorage.getItem('checkoutid')) {
     let check = checkout.id
     localStorage.setItem('checkoutid', check)
 
-    console.log(localStorage)
 
   });
 }
@@ -37,7 +36,13 @@ const router = new VueRouter({
     { path: '/product/:collectionid/:productid', component: product },
     { path: '/cart', component: cart },
 
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    // return { x: 0, y: 0 }
+    // document.querySelector('.container').scrollTop = 0
+    document.querySelector('.container').scroll({top: 0, left: 0, behavior: 'smooth' });
+    return null
+  }
 })
 new Vue({
   router,

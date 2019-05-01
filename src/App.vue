@@ -157,8 +157,8 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: height, opacity;
+  transition-duration: .2s;
+  transition-property: height, opacity, transform;
   transition-timing-function: ease;
   overflow: hidden;
 }
@@ -166,6 +166,7 @@ body {
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
+  transform: translateY( -20px);
 }
 
 .custom-select {
