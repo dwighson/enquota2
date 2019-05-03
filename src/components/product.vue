@@ -121,9 +121,7 @@ export default {
         this.amount--;
       }
     },
-    changeprice() {
-      
-    },
+    changeprice() {},
     addtocart() {
       let chosenvariant = this.chosenvariant;
       let snapshot = this.options;
@@ -143,11 +141,10 @@ export default {
             customAttributes: [{ key: "MyKey", value: encodeddata }]
           }
         ];
-        this.$shopify.checkout
-          .addLineItems(this.checkoutid, lineItemsToAdd)
-          // .then(checkout => {
-          //   // Do something with the updated checkout
-          // });
+        this.$shopify.checkout.addLineItems(this.checkoutid, lineItemsToAdd);
+        // .then(checkout => {
+        //   // Do something with the updated checkout
+        // });
       }
 
       // if (typeof variantobj[0].id == 'undefined') {
@@ -172,6 +169,18 @@ export default {
     }
   },
   mounted() {
+    $(window).resize(function() {
+      $(".carousel").css({
+        height: $(".carousel").width() + "px"
+      });
+
+      $(".carousel .slide").css({
+        height: $(".carousel .slide").width() + "px"
+      });
+      $(".carouselnav .slide").css({
+        height: $(".carouselnav .slide").width() + "px"
+      });
+    });
     $(".carousel").slick({
       // lazyLoad: "ondemand",
       slidesToShow: 1,
@@ -189,6 +198,16 @@ export default {
       asNavFor: ".carousel",
       focusOnSelect: true,
       centerMode: false
+      // responsive: [
+      //   {
+      //     breakpoint: 1024,
+      //     settings: {
+      //       slidesToShow: 3,
+      //       slidesToScroll: 3,
+      //       infinite: true,
+      //     }
+      //   }
+      // ]
     });
 
     const collectionId = this.$route.params.collectionid;
@@ -229,6 +248,17 @@ export default {
                     imgg[x] +
                     ") no-repeat center center; background-size: cover; '></div>"
                 );
+
+                $(".carousel").css({
+                  height: $(".carousel").width() + "px"
+                });
+
+                $(".carousel .slide").css({
+                  height: $(".carousel .slide").width() + "px"
+                });
+                $(".carouselnav .slide").css({
+                  height: $(".carouselnav .slide").width() + "px"
+                });
               }, 500);
             }
           }
@@ -249,8 +279,11 @@ export default {
   min-height: 400px;
   text-align: center;
 }
+.product * {
+  /* outline: 1px solid red; */
+}
 .slider {
-  min-height: 800px;
+  min-height: 300px;
   width: calc(50% - 20px);
   min-width: 350px;
   max-width: 800px;
@@ -288,8 +321,8 @@ export default {
   height: 560px;
 }
 .carousel .slide {
+  max-height: 560px;
   height: 560px;
-  /* height: 100%; */
   background: black;
   width: 100%;
 
@@ -315,21 +348,24 @@ export default {
 }
 .carouselnav {
   height: 100px;
-  width: 555px;
+  width: 100%;
+  max-width: 555px;
   margin: 0 auto;
 }
 .carouselnav .slide {
-  min-height: 90px;
+  max-height: 90px;
   overflow: hidden;
-
-  min-width: 90px;
+  width: 25%;
+  height: 100%;
+  max-width: 90px;
 }
 
 .carouselnav .slick-slide {
   margin: 5px;
 }
 .formaten {
-  height:100px;
+  height: 100px;
+  
   width: 100%;
   margin-bottom: 10px;
   display: flex;
@@ -342,27 +378,30 @@ export default {
   margin: 10px;
   width: 100px;
   text-align: center;
-  line-height: 140px;
+  line-height: 120px;
   color: black;
   flex: 1;
   /* float: left; */
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   border: 2px solid black;
+
+  padding: 4px;
+  box-sizing: border-box;
 }
 .formats:first-of-type {
   max-width: 100px;
   height: 50px;
-  line-height: 50px;
+  line-height: 40px;
 }
 .formats:nth-of-type(2) {
   max-width: 135px;
   height: 70px;
-  line-height: 70px;
+  line-height: 60px;
 }
 .formats:nth-of-type(3) {
   max-width: 150px;
   height: 90px;
-  line-height: 80px;
+  line-height: 70px;
   position: relative;
   border: 2px solid red;
 }
@@ -388,12 +427,14 @@ export default {
 }
 .depths {
   text-align: center;
-  line-height: 50px;
+  line-height: 42px;
   height: 50px;
   border: 2px solid black;
   margin: 5px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 
+  padding: 4px;
+  box-sizing: border-box;
   width: 80px;
   float: left;
 }
@@ -403,7 +444,7 @@ export default {
   height: 50px;
   border: 2px solid black;
   margin: 5px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 
   width: 100px;
   float: left;

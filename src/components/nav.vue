@@ -4,8 +4,12 @@
     <!-- <div class="announcement" v-show="close == false">
       Kempi Collectie staat nu online!
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
-    </div> -->
+    </div>-->
     <div class="logo"></div>
+     <router-link tag="div" to="/cart" class="cartmobile">
+          <div class="carticon"></div>
+        </router-link>
+    <button class="navbutton">=</button>
     <ul class="navlist">
       <span class="navwrap">
         <router-link tag="li" to="/">Shop</router-link>
@@ -48,7 +52,7 @@ export default {
 
           if (x == checkout.lineItems.length - 1) {
             console.log(counter);
-            this.cartitems = counter
+            this.cartitems = counter;
           }
         }
         // console.log(checkout.lineItems);
@@ -87,6 +91,7 @@ export default {
   text-align: center;
   z-index: 9999;
   flex-direction: column;
+  overflow: hidden;
 }
 .announcement {
   height: 50px;
@@ -109,10 +114,12 @@ export default {
 .logo {
   text-align: center;
   font-size: 80px;
+  float: left;
 
   height: 100px;
   background: url("https://media.discordapp.net/attachments/546084619339038741/564534422595174411/Group.png")
     no-repeat center center;
+
   text-transform: uppercase;
 }
 .navlist {
@@ -162,5 +169,51 @@ export default {
   font-size: 15px;
 
   background: #141414;
+}
+.cartmobile, .navbutton {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .navlist {
+    display: none;
+  }
+  .logo {
+    width: 200px;
+    /* margin-left:30px; */
+    /* float: left; */
+    float: none;
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    background-size: contain;
+  }
+  .nav {
+    display: block;
+    position: relative;
+  }
+  .cartmobile {
+    display: block;
+    position: absolute;
+    right: 50px;
+    top: 0px;
+  }
+  .navbutton {
+    background: green;
+    position: absolute;
+    top: 0px;
+    line-height: 50px;
+    right: 10px;
+    border: 0px;
+
+    display: block;
+    font-size: 40px;
+    float: left;
+    width: 40px;
+    height: 100%;
+  }
+  .shipping {
+    display: none;
+  }
 }
 </style>
