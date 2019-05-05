@@ -107,8 +107,8 @@ then close all select boxes:*/
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400,500");
-
+/* @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400,500"); */
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+1p:300,400,500");
 body {
   margin: 0;
   height: 100vh;
@@ -117,7 +117,7 @@ body {
   overflow-x: hidden;
 }
 * {
-  font-family: "M PLUS Rounded 1c";
+  font-family: "M PLUS 1p";
   /* outline:1px solid red; */
 }
 #app {
@@ -157,7 +157,7 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   transition-property: height, opacity, transform;
   transition-timing-function: ease;
   overflow: hidden;
@@ -166,7 +166,7 @@ body {
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
-  transform: translateY( -20px);
+  transform: translateY(-20px);
 }
 
 .custom-select {
