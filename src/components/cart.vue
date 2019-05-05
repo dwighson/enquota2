@@ -64,10 +64,11 @@
               </select>
             </div>
           </div>
-          <p class="deleteitem" v-on:click="removeproduct(item.id)">verwijder product &times;</p>
+          <p class="deleteitem" v-on:click="removeproduct(item.id, x)">verwijder product &times;</p>
         </div>
       </li>
     </ul>
+    
     <div class="total">
       <p>
         subtotaal:
@@ -116,14 +117,16 @@ export default {
         window.location.href = checkout.webUrl;
       });
     },
-    removeproduct(id) {
+    removeproduct(id, index) {
       const checkoutId = this.checkoutid; // ID of an existing checkout
       const lineItemIdsToRemove = [id];
 
       // Remove an item from the checkout
-      this.$shopify.checkout
-        .removeLineItems(checkoutId, lineItemIdsToRemove)
-       
+      this.$shopify.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
+        // Do something with the updated checkout
+        this.checkoutobj.splice(index, 1)
+        alert('Het product is uit uw winkelwagel verwijdert')
+      });
     },
     fetchproduct(id, custom) {
       let decodeddata = window.atob(custom[0].value);
@@ -153,9 +156,13 @@ export default {
     let checkid = this.checkoutid;
     this.$shopify.checkout.fetch(checkid).then(checkout => {
       // Do something with the checkout
+      // console.log(checkout)
       this.checkoutraw = checkout;
       for (let i = 0; i <= checkout.lineItems.length - 1; i++) {
         this.checkoutobj.push(checkout.lineItems[i]);
+        if (i == checkout.lineItems.length - 1) {
+          console.log(this.checkoutobj);
+        }
       }
 
       setTimeout(function() {

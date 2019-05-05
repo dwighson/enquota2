@@ -10,7 +10,7 @@
       <div class="instock">op voorraad</div>
       <div class="description" v-html="description"/>
 
-      <div class="price">&euro;75,00</div>
+      <div class="price">&euro;{{variantprice}}</div>
       <hr>
       <div class="formaat">
         <b>Formaat:</b>
@@ -79,7 +79,9 @@ export default {
       collectionId: "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzEyOTMyMjQ1MTAyMg",
       chosenvariant: "",
       products: null,
-      checkoutid: ""
+      checkoutid: "",
+      productid: "",
+      variantprice: ""
     };
   },
   methods: {
@@ -92,6 +94,7 @@ export default {
       let query = format + " / " + depth + " / " + border;
 
       this.chosenvariant = query;
+      this.changeprice(query);
     },
     selectdepth(index) {
       this.selecteddepth = index;
@@ -121,7 +124,16 @@ export default {
         this.amount--;
       }
     },
-    changeprice() {},
+    changeprice(query) {
+      let pId = this.productid;
+
+      this.$shopify.product.fetch(pId).then(product => {
+        // Do something with the product
+        // console.log(product)
+        let initvariant = product.variants.find(function(variant) { return variant.title == query})
+        this.variantprice = initvariant.price
+      });
+    },
     addtocart() {
       let chosenvariant = this.chosenvariant;
       let snapshot = this.options;
@@ -141,10 +153,11 @@ export default {
             customAttributes: [{ key: "MyKey", value: encodeddata }]
           }
         ];
-        this.$shopify.checkout.addLineItems(this.checkoutid, lineItemsToAdd);
-        // .then(checkout => {
-        //   // Do something with the updated checkout
-        // });
+        this.$shopify.checkout.addLineItems(this.checkoutid, lineItemsToAdd)
+        .then(checkout => {
+          console.log(checkout)
+          alert('toegevoegd aan de winkelwagen!')
+        });
       }
 
       // if (typeof variantobj[0].id == 'undefined') {
@@ -217,11 +230,12 @@ export default {
         return singlecollection.handle == collectionId;
       }).id;
       const productId = this.$route.params.productid;
+      // this.productid =
       this.$shopify.collection.fetchWithProducts(id).then(collection => {
         let products = collection.products.filter(function(product) {
           return product.handle == productId;
         });
-
+        this.productid = products[0].id;
         this.products = products[0];
         this.description = products[0].descriptionHtml;
         this.title = products[0].title;
@@ -229,6 +243,13 @@ export default {
         this.options.depth = products[0].options[1].values;
         this.options.border = products[0].options[2].values;
         // this.images = products.images.src
+
+        let format = this.options.format[this.selectedformat];
+        let depth = this.options.depth[this.selecteddepth];
+        let border = this.options.border[this.selectedborder];
+        let query = format + " / " + depth + " / " + border;
+        let initvariant = products[0].variants.find(function(variant) { return variant.title == query})
+        this.variantprice = initvariant.price
         let imgg = this.images;
 
         for (let i = 0; i <= products[0].images.length - 1; i++) {
@@ -365,7 +386,7 @@ export default {
 }
 .formaten {
   height: 100px;
-  
+
   width: 100%;
   margin-bottom: 10px;
   display: flex;
