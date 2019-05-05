@@ -149,8 +149,8 @@ export default {
         const lineItemsToAdd = [
           {
             variantId: variantobj[0].id,
-            quantity: this.amount,
-            customAttributes: [{ key: "MyKey", value: encodeddata }]
+            quantity: this.amount
+            // customAttributes: [{ key: "MyKey", value: encodeddata }]
           }
         ];
         this.$shopify.checkout.addLineItems(this.checkoutid, lineItemsToAdd)

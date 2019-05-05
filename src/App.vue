@@ -174,7 +174,7 @@ body {
   font-family: Arial;
   float: left;
   border: 1px solid black;
-  width: 150px;
+  width: 130px;
 }
 
 .custom-select select {
