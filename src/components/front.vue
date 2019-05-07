@@ -36,7 +36,8 @@ export default {
 
 <style scoped>
 .front {
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  flex: 1;
 }
 .aboutuswrap {
   /* display: flex; */

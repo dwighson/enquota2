@@ -129,7 +129,8 @@ ul {
   height: 400px;
   margin: 10px;
   width: 300px;
-  display: inline-block;
+  float: left;
+  /* display: inline-block; */
 }
 .item .titleAndPrice {
   display: flex;

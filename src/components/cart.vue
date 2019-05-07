@@ -12,7 +12,7 @@
         <div class="iteminfo">
           <p class="title">
             {{item.title}}
-            <span>&euro;{{item.variant.price}}</span>
+            <span class="pricespan">&euro;{{item.variant.price}}</span>
           </p>
 
           <div class="aantal dropdownwrap">
@@ -81,7 +81,7 @@
 
       <p>kortingscode invoeren:</p>
       <input type="text" placeholder="ENQUOTA2019">
-      <button>+</button>
+      <button class="discountbutton">+</button>
 
       <p>
         Totaal:
@@ -89,7 +89,7 @@
       </p>
 
       <button class="checkoutbutton">bestellen</button>
-      <p>niet tevreden? Geld terug!</p>
+      <p class="geldterug">niet tevreden? Geld terug!</p>
     </div>
   </div>
 </template>
@@ -272,6 +272,7 @@ then close all select boxes:*/
   min-height: 500px;
   padding-top: 100px;
   width: 100%;
+  flex: 1;
   text-align: center;
 }
 .cartpage h1 {
@@ -280,12 +281,20 @@ then close all select boxes:*/
   width: 1390px;
   margin: 0 auto;
 }
+.pricespan {
+  float: right;
+  font-weight: normal
+}
 ul.cartitem {
   display: inline-block;
   text-align: left;
   /* background: purple; */
   margin: 0px 150px 0px 0px;
   padding: 0;
+}
+hr {
+  /* background: rgba(0,0,0, .9); */
+  border: 1px solid rgba(0,0,0, .1);
 }
 .cartitem li {
   display: flex;
@@ -342,9 +351,36 @@ p {
 }
 .total .checkoutbutton {
   width: 100%;
+  background: #22E7AF;
+  font-weight: bolder;
+  color: white;
+  height: 40px;
+  font-size: 20px;;
+  border: none;
+}
+.total .discountbutton {
+  background: #22E7AF;
+  color: white;
+  border: none;
+  height: 40px;
+  width: 40px;  
+  font-weight: bolder;
+  font-size: 30px;
+  line-height: 30px;
+}
+.total .geldterug {
+ text-align: center;
+ font-size: 15px;
+ font-weight: lighter;
 }
 .total input {
-  width: calc(100% - 30px)
+  width: calc(100% - 40px);
+  background: #F2F2F2;
+  border: none;
+  vertical-align: top;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 10px;
 }
 .dropdown {
   padding: 0;

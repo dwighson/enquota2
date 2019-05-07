@@ -10,7 +10,7 @@
         </ul>
       </div>
     </div> -->
-    <div class="footer"></div>
+    <div class="footer">&copy; Enquota 2019</div>
   </footer>
 </template>
 <script>
@@ -47,6 +47,8 @@ footer {
 .footer {
   height: 20px;
   width: 100%;
+  min-height: 20px;
+
   background: #141414;
 }
 </style>

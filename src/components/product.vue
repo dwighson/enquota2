@@ -297,7 +297,9 @@ export default {
 <style >
 .product {
   padding-top: 50px;
-  min-height: 400px;
+  flex: 1;
+  /* display: inline-block; */
+  /* background: green; */
   text-align: center;
 }
 .product * {
