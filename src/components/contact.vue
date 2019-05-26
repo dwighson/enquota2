@@ -1,11 +1,13 @@
 <template>
   <div class="contact">
     <div class="form">
-      <input type="text" placeholder="Naam">
-      <input type="text" placeholder="Email">
-      <input type="text" placeholder="onderwerp">
-      <textarea ></textarea>
-      <button>verzenden</button>
+      <div class="wrap">
+        <input type="text" placeholder="Naam">
+        <input type="text" placeholder="Email">
+        <input type="text" placeholder="onderwerp">
+        <textarea></textarea>
+        <button>verzenden</button>
+      </div>
     </div>
     <div class="contactinfo">
       <p>Telefoonnummer: (+31)06 43227028</p>
@@ -25,6 +27,17 @@
   flex: 1;
   background: blue;
 }
+.form .wrap {
+  width: 400px;
+  min-height: 300px;
+  flex-direction: row;
+  background: purple;
+}
+.wrap input , .wrap textarea{
+  width: 100%;
+  
+}
+
 .contactinfo {
   flex: 1;
   background: orange;

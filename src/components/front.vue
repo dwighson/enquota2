@@ -9,7 +9,7 @@
       <instagram/>
     </div>
     <shipping/>
-    <!-- <contact/> -->
+    <contact/>
   </div>
 </template>
 <script>
