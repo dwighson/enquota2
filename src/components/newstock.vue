@@ -76,10 +76,9 @@ export default {
 
 <style>
 .newstock {
-  min-height: 400px;
+  min-height: 300px;
   /* padding-top: 25px; */
   width: 100%;
-  padding-bottom: 50px;
   text-align: center;
   background: #f7f7f7;
 }
@@ -88,12 +87,14 @@ export default {
   font-size: 64px;
   color: black;
   margin-top: 0;
+  text-align: center;
+  height: 150px;
+  line-height: 150px;
   text-transform: capitalize;
 }
 .stockwrap {
   margin: 0 auto;
   width: calc(100% - 100px);
-  height: 400px;
 }
 .stockwrap a {
   display: inline-block;

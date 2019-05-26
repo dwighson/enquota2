@@ -3,10 +3,10 @@
     <newstock/>
     <h1>Shop</h1>
     <allcollections/>
-    <!-- <testimonials/> -->
+    <testimonials/>
     <div class="aboutuswrap">
       <aboutus/>
-      <!-- <instagram/> -->
+      <instagram/>
     </div>
     <shipping/>
     <!-- <contact/> -->
@@ -40,11 +40,13 @@ export default {
   flex: 1;
 }
 .aboutuswrap {
-  /* display: flex; */
+  margin: 0 auto;
   text-align: center;
   width: 100%;
+  max-width: 1750px;
   min-height: 600px;
 }
+
 h1 {
   margin-left: 80px;
   margin-top: 40px;

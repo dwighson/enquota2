@@ -1,10 +1,10 @@
 <template>
   <div class="nav">
     <div class="shipping">Gratis verzending voor Nederland en België</div>
-    <!-- <div class="announcement" v-show="close == false">
+    <div class="announcement" v-show="close == false">
       Kempi Collectie staat nu online!
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
-    </div>-->
+    </div>
     <div class="logo"></div>
      <router-link tag="div" to="/cart" class="cartmobile">
           <div class="carticon"></div>

@@ -21,15 +21,17 @@
   padding: 10px;
   color: black;
   min-width: 300px;
-  margin: 5px;
+  margin: 80px;
+  
   max-width: 700px;
   font-weight: lighter;
-  height: 400px;
+  min-height: 400px;
 }
 p {
   font-size: 22px;
 }
 h1 {
   font-size: 48px;
+  padding: 0;
 }
 </style>

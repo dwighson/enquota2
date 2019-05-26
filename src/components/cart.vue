@@ -72,11 +72,11 @@
     <div class="total">
       <p>
         subtotaal:
-        <!-- <span>&euro;{{ checkoutraw.lineItemsSubtotalPrice.amount}}</span> -->
+        <span class="pricespan">&euro;2</span>
       </p>
       <p>
         verzendkosten:
-        <span>gratis</span>
+        <span class="pricespan">gratis</span>
       </p>
 
       <p>kortingscode invoeren:</p>
@@ -124,6 +124,9 @@ export default {
             console.log(this.options);
           });
       }
+    },
+    fetchChosenOptions(variant){
+      
     },
     gotocheckout() {
       let checkid = this.checkoutid;
@@ -269,7 +272,7 @@ then close all select boxes:*/
 
 <style scoped>
 .cartpage {
-  min-height: 500px;
+  /* min-height: 500px; */
   padding-top: 100px;
   width: 100%;
   flex: 1;

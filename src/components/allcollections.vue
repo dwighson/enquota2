@@ -80,6 +80,7 @@ export default {
 .allcollections {
   display: flex;
   width: calc(100% - 100px);
+  max-width: 1750px;
   margin: 0 auto;
 }
 .filter {

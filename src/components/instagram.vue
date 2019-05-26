@@ -1,5 +1,8 @@
 <template>
   <div class="instagram">
+    <div class="instatitle">
+       <h1>Instagram</h1> <button>Follow ons nu!</button>
+    </div>
     <div id="instafeed">
       
     </div>
@@ -40,21 +43,49 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .instagram {
   margin: 5px;
-  background: pink;
-  max-width: 850px;
+  max-width: 740px;
   vertical-align: top;
+  flex: 1;
+  margin: 70px;
+
+  color: black;
   display: inline-block;
   min-height: 400px;
+}
+.instatitle {
+  min-height: 30px;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+h1 {
+  font-size: 48px;
+  flex: 1;
+  margin: 0;
+  line-height: 48px;
+  text-align: left;
+  padding-left: 20px;
+}
+button {
+  height: 50px;
+  width: 270px;
+  background: #22E7AF;
+  border: 0px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
 }
 .instapic {
   width: calc(50% - 30px);
   min-width: 300px;
   max-width: 415px;
-  float: left;
+  display: inline-block;
   margin: 10px;
+  text-align: center;
 }
 
 .instapic img {

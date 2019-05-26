@@ -1,6 +1,6 @@
 <template>
   <div class="testimonials">
-    <h1>testimonials</h1>
+    <h1>Testimonials</h1>
     <div class="wrap">
       <div v-for="i in 10" v-bind:key="i">
         <div class="card">
@@ -29,12 +29,17 @@ export default {
 </script>
 <style>
 .testimonials {
-  height: 330px;
-  width: calc(100% - 100px);
+  min-height: 330px;
+  width: calc(100%);
   text-align: center;
   margin: 0 auto;
-  padding-top: 25px;
   background: #f7f7f7;
+}
+.wrap {
+  width: calc(100% - 100px);
+  max-width: 1800px;
+  min-height: 200px;
+  margin: 0 auto;
 }
 .testimonials .card {
   height: 200px;
@@ -56,7 +61,17 @@ export default {
   min-height: 10px;
   margin: 0 auto;
 }
+.testimonials h1 {
+  text-align: center;
+  background: white;
+  padding: 0;
+  margin: 0;
+  line-height: 100px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 100px;
 
+}
 .card .pic {
   height: 130px;
   width: 130px;
