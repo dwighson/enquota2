@@ -30,7 +30,7 @@
 .form .wrap {
   width: 400px;
   min-height: 300px;
-  flex-direction: row;
+  flex-direction: row                       ;
   background: purple;
 }
 .wrap input , .wrap textarea{
