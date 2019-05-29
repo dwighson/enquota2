@@ -2,7 +2,7 @@
   <div id="app">
     <navbar/>
     <div class="container">
-      <transition name="fade" mode="out-in">
+      <transition name="fade">
         <router-view/>
       </transition>
       <footerlinks/>

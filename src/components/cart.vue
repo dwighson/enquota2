@@ -1,9 +1,6 @@
 <template>
   <div class="cartpage">
-
     <ul class="cartitem">
- 
-   
       <hr>
       <li v-for="(item, x) in checkoutobj" v-bind:key="x">
         <div class="thumbnail">

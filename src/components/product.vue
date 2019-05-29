@@ -305,6 +305,9 @@ export default {
 .product * {
   /* outline: 1px solid red; */
 }
+.designedby {
+  color: rgba(0,0,0, .4);
+}
 .slider {
   min-height: 300px;
   width: calc(50% - 20px);
@@ -362,8 +365,6 @@ export default {
   user-select: none;
 }
 .description {
-  padding: 20px 0px 20px 0px;
-  text-align: justify;
   font-size: 20px;
 }
 .productinfo .price {
@@ -484,6 +485,7 @@ export default {
 .addtocart button {
   flex: 1;
   border: none;
+  height: 100%;
   background: black;
   color: white;
 }

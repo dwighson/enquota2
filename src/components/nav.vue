@@ -6,9 +6,9 @@
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
     </div>
     <div class="logo"></div>
-     <router-link tag="div" to="/cart" class="cartmobile">
-          <div class="carticon"></div>
-        </router-link>
+    <router-link tag="div" to="/cart" class="cartmobile">
+    <div class="carticon"></div>
+    </router-link>
     <button class="navbutton">=</button>
     <ul class="navlist">
       <span class="navwrap">
@@ -16,16 +16,14 @@
         <li>over ons</li>
         <li>Contact</li>
         <li>testimonials</li>
-
         <router-link tag="li" to="/cart" class="cart">
-          <div class="carticon"></div>
+        <div class="carticon"></div>
         </router-link>
         <!-- <li>({{getCartItems}})</li> -->
       </span>
     </ul>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -40,16 +38,13 @@ export default {
       this.close = !this.close;
     }
   },
-
   computed: {
     getCartItems() {
       let checkid = this.checkoutid;
-
       var counter = 0;
       this.$shopify.checkout.fetch(checkid).then(checkout => {
         for (let x = 0; x <= checkout.lineItems.length - 1; x++) {
           counter = counter + checkout.lineItems[x].quantity;
-
           if (x == checkout.lineItems.length - 1) {
             console.log(counter);
             this.cartitems = counter;
@@ -66,12 +61,10 @@ export default {
     //   var counter = 0;
     //   for (let x = 0; x <= checkout.lineItems.length - 1; x++) {
     //     counter = counter + checkout.lineItems[x].quantity;
-
     //     if (x == checkout.lineItems.length - 1) {
     //       console.log(counter);
     //     }
     //   }
-
     //   // console.log(checkout.lineItems);
     // });
   }
@@ -93,6 +86,7 @@ export default {
   flex-direction: column;
   overflow: hidden;
 }
+
 .announcement {
   height: 50px;
   color: white;
@@ -100,6 +94,7 @@ export default {
   position: relative;
   background: #22e7af;
 }
+
 .closeBanner {
   position: absolute;
   right: 20px;
@@ -111,17 +106,16 @@ export default {
   border: none;
   transform: translateY(-50%);
 }
+
 .logo {
   text-align: center;
   font-size: 80px;
   float: left;
-
   height: 100px;
-  background: url("https://media.discordapp.net/attachments/546084619339038741/564534422595174411/Group.png")
-    no-repeat center center;
-
+  background: url("https://media.discordapp.net/attachments/546084619339038741/564534422595174411/Group.png") no-repeat center center;
   text-transform: uppercase;
 }
+
 .navlist {
   display: block;
   padding: 0px;
@@ -130,15 +124,16 @@ export default {
   margin: 0px;
   flex: 1;
 }
+
 .navwrap {
   min-width: 600px;
   display: inline-block;
 }
+
 .navlist li {
   display: block;
   float: left;
   flex: 1;
-
   font-size: 25px;
   /* background: purple; */
   line-height: 50px;
@@ -147,14 +142,15 @@ export default {
   text-transform: capitalize;
   min-width: 125px;
 }
+
 .cart {
   height: 50px;
   max-width: 90px;
 }
+
 .carticon {
   display: inline-block;
-  background: url("https://media.discordapp.net/attachments/546084619339038741/564536432841064478/Vector.png")
-    no-repeat center center;
+  background: url("https://media.discordapp.net/attachments/546084619339038741/564536432841064478/Vector.png") no-repeat center center;
   background-size: contain;
   height: 50px;
   margin: 0 auto;
@@ -162,15 +158,17 @@ export default {
   padding: 0;
   width: 30px;
 }
+
 .shipping {
   line-height: 30px;
   height: 30px;
   color: white;
   font-size: 15px;
-
   background: #141414;
 }
-.cartmobile, .navbutton {
+
+.cartmobile,
+.navbutton {
   display: none;
 }
 
@@ -199,13 +197,13 @@ export default {
     top: 0px;
   }
   .navbutton {
-    background: green;
+    color: black;
     position: absolute;
     top: 0px;
+    background: none;
     line-height: 50px;
     right: 10px;
     border: 0px;
-
     display: block;
     font-size: 40px;
     float: left;
