@@ -12,7 +12,7 @@
 
 <script>
 import navbar from "./components/nav";
-import products from "./components/products";
+// import products from "./components/products";
 import footerlinks from "./components/footerlinks";
 export default {
   name: "App",
@@ -20,12 +20,12 @@ export default {
   mounted() {
     // localStorage.removeItem('checkoutid')
     // console.log(localStorage.getItem('checkoutid'))
-    this.$shopify.checkout
-      .fetch(localStorage.getItem("checkoutid"))
-      .then(checkout => {
-        // Do something with the checkout
-        // console.log(checkout);
-      });
+    // this.$shopify.checkout
+    //   .fetch(localStorage.getItem("checkoutid"))
+    //   .then(checkout => {
+    //     // Do something with the checkout
+    //     // console.log(checkout);
+    //   });
 
     var x, i, j, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
@@ -118,7 +118,7 @@ body {
 }
 * {
   font-family: "M PLUS 1p";
-  /* outline:1px solid red; */
+   /*outline:1px solid red; */
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -192,12 +192,12 @@ body {
 .select-selected:after {
   position: absolute;
   content: "";
-  top: 14px;
+  top: 16px;
   right: 10px;
   width: 0;
   height: 0;
   border: 6px solid transparent;
-  border-color: #25ceff transparent transparent transparent;
+  border-color: #22e7af transparent transparent transparent;
 }
 
 /*point the arrow upwards when the select box is open (active):*/

@@ -23,7 +23,7 @@
           <div class="formaat dropdownwrap">
             <p>formaat:</p>
             <div class="custom-select">
-              <select name id>
+              <select>
                 <option value="1">30x40</option>
 
                 <option
@@ -199,12 +199,12 @@ export default {
           b.setAttribute("class", "select-items select-hide");
           for (j = 1; j < selElmnt.length; j++) {
             /*for each option in the original select element,
-    create a new DIV that will act as an option item:*/
+          create a new DIV that will act as an option item:*/
             c = document.createElement("DIV");
             c.innerHTML = selElmnt.options[j].innerHTML;
             c.addEventListener("click", function() {
               /*when an item is clicked, update the original select box,
-        and the selected item:*/
+              and the selected item:*/
               var y, i, k, s, h;
               s = this.parentNode.parentNode.getElementsByTagName("select")[0];
               h = this.parentNode.previousSibling;
@@ -229,7 +229,7 @@ export default {
           x[i].appendChild(b);
           a.addEventListener("click", function(e) {
             /*when the select box is clicked, close any other select boxes,
-      and open/close the current select box:*/
+          and open/close the current select box:*/
             e.stopPropagation();
             closeAllSelect(this);
             this.nextSibling.classList.toggle("select-hide");
@@ -238,7 +238,7 @@ export default {
         }
         function closeAllSelect(elmnt) {
           /*a function that will close all select boxes in the document,
-  except the current select box:*/
+          except the current select box:*/
           var x,
             y,
             i,
@@ -259,7 +259,7 @@ export default {
           }
         }
         /*if the user clicks anywhere outside the select box,
-then close all select boxes:*/
+          then close all select boxes:*/
         document.addEventListener("click", closeAllSelect);
       }, 1000);
     });

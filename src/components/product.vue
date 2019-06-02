@@ -136,7 +136,6 @@ export default {
     },
     addtocart() {
       let chosenvariant = this.chosenvariant;
-      let snapshot = this.options;
       let variantobj = this.products.variants.filter(function(variant) {
         return variant.title == chosenvariant;
       });
@@ -144,7 +143,6 @@ export default {
       if (typeof variantobj[0] == "undefined") {
         alert("Variant niet beschikbaar!");
       } else {
-        let encodeddata = window.btoa(JSON.stringify(snapshot));
 
         const lineItemsToAdd = [
           {
@@ -155,7 +153,7 @@ export default {
         ];
         this.$shopify.checkout.addLineItems(this.checkoutid, lineItemsToAdd)
         .then(checkout => {
-          console.log(checkout)
+          // console.log(checkout)
           alert('toegevoegd aan de winkelwagen!')
         });
       }

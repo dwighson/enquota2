@@ -1,15 +1,15 @@
 <template>
   <div class="front">
-    <newstock/>
+    <!-- <newstock/> -->
     <h1>Shop</h1>
     <allcollections/>
     <testimonials/>
     <div class="aboutuswrap">
       <aboutus/>
-      <instagram/>
+      <!-- <instagram/> -->
     </div>
     <shipping/>
-    <contact/>
+    <!-- <contact/> -->
   </div>
 </template>
 <script>
