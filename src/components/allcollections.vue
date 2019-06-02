@@ -131,7 +131,6 @@ export default {
   computed: {
     collections() {
       this.$shopify.collection.fetchAllWithProducts().then(collections => {
-        // Do something with the collections
         this.collectionss = collections;
       });
       return this.collectionss;
@@ -166,12 +165,9 @@ export default {
 </script>
 
 <style scoped>
-/** {
-  outline: 1px solid red;
-}*/
+
 .allcollections {
   display: flex;
-  /*width: calc(100% - 100px);*/
   max-width: 1750px;
   margin: 0 auto;
 }
@@ -216,17 +212,14 @@ ul {
   margin: 20px;
   flex: 1;
   min-height: 500px;
-  /* max-height: 800px; */
   position: relative;
-  /* overflow-y: auto; */
-
   text-align: center;
 }
 .collections .item {
   height: 400px;
   margin: 10px;
   width: 300px;
-   display: inline-block; 
+  display: inline-block; 
 }
 .item .titleAndPrice {
   display: flex;

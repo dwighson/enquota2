@@ -110,12 +110,9 @@ export default {
   methods: {
     fetchoptions() {
       for (let y = 0; y <= this.checkoutobj.length - 1; y++) {
-        // console.log()
         this.$shopify.product
           .fetch(this.checkoutobj[y].variant.product.id)
           .then(product => {
-            // Do something with the product
-            // console.log(product.options);
             this.options.push({ values: product.options });
             console.log(this.checkoutobj[y]);
             console.log(this.options);
@@ -132,14 +129,12 @@ export default {
       });
     },
     removeproduct(id, index) {
-      const checkoutId = this.checkoutid; // ID of an existing checkout
+      const checkoutId = this.checkoutid; 
       const lineItemIdsToRemove = [id];
 
-      // Remove an item from the checkout
       this.$shopify.checkout
         .removeLineItems(checkoutId, lineItemIdsToRemove)
         .then(checkout => {
-          // Do something with the updated checkout
           this.checkoutobj.splice(index, 1);
           this.options.splice(index, 1);
           alert("Het product is uit uw winkelwagel verwijdert");
@@ -165,24 +160,19 @@ export default {
       }
 
       return options;
-      // this.options.push({objj});
-      // }
     }
   },
   mounted() {
     let checkid = this.checkoutid;
     this.$shopify.checkout.fetch(checkid).then(checkout => {
-      // Do something with the checkout
-      // console.log(checkout)
+
       this.checkoutraw = checkout;
       for (let i = 0; i <= checkout.lineItems.length - 1; i++) {
         this.checkoutobj.push(checkout.lineItems[i]);
         if (i == checkout.lineItems.length - 1) {
-          // console.log(this.checkoutobj[0].variant.product.id);
           this.fetchoptions();
         }
       }
-
       setTimeout(function() {
         var x, i, j, selElmnt, a, b, c;
         /*look for any elements with the class "custom-select":*/
@@ -269,7 +259,6 @@ export default {
 
 <style scoped>
 .cartpage {
-  /* min-height: 500px; */
   padding-top: 100px;
   width: 100%;
   flex: 1;
@@ -288,19 +277,16 @@ export default {
 ul.cartitem {
   display: inline-block;
   text-align: left;
-  /* background: purple; */
   margin: 0px 150px 0px 0px;
   padding: 0;
 }
 hr {
-  /* background: rgba(0,0,0, .9); */
   border: 1px solid rgba(0,0,0, .1);
 }
 .cartitem li {
   display: flex;
   margin-bottom: 10px;
   text-align: left;
-  /* outline: 1px solid red; */
   width: 770px;
   height: 270px;
 }
@@ -339,7 +325,6 @@ p {
 .total {
   display: inline-block;
   margin: 10px;
-  /* visibility: hidden; */
   vertical-align: top;
   height: 400px;
   width: 500px;

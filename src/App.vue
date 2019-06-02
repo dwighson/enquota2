@@ -18,15 +18,6 @@ export default {
   name: "App",
   components: { navbar, footerlinks },
   mounted() {
-    // localStorage.removeItem('checkoutid')
-    // console.log(localStorage.getItem('checkoutid'))
-    // this.$shopify.checkout
-    //   .fetch(localStorage.getItem("checkoutid"))
-    //   .then(checkout => {
-    //     // Do something with the checkout
-    //     // console.log(checkout);
-    //   });
-
     var x, i, j, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
     x = document.getElementsByClassName("custom-select");
@@ -107,8 +98,9 @@ then close all select boxes:*/
 </script>
 
 <style>
-/* @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400,500"); */
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+1p:300,400,500");
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400,500");
+
 body {
   margin: 0;
   height: 100vh;
@@ -135,13 +127,7 @@ body {
   flex-direction: column;
   overflow: auto;
 }
-/* ::-webkit-scrollbar-button { 
-  display: block; 
-  height: 13px; 
-  border-radius: 0px; 
-  background-color: #1efbdd; 
-}  */
-/* ::-webkit-scrollbar-button:hover{ background-color: #22E7AF; }  */
+:-webkit-scrollbar-button:hover{ background-color: #22E7AF; }  */
 
 ::-webkit-scrollbar-thumb {
   background-color: #ccc;
@@ -185,7 +171,6 @@ body {
 .select-selected {
   color: black;
   background: white;
-  /* background-color: DodgerBlue; */
 }
 
 /*style the arrow inside the select element:*/
