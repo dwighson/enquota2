@@ -26,6 +26,9 @@ footer {
   display: flex;
   flex-direction: column;
   background: orange;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 .links {
   flex: 1;
@@ -48,7 +51,7 @@ footer {
   height: 20px;
   width: 100%;
   min-height: 20px;
-
+  color:  white;
   background: #141414;
 }
 </style>

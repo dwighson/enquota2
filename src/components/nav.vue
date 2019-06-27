@@ -86,7 +86,9 @@ export default {
   flex-direction: column;
   overflow: hidden;
 }
-
+li {
+  cursor: pointer;
+}
 .announcement {
   height: 50px;
   color: white;

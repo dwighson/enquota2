@@ -11,13 +11,10 @@
         </li>
       </ul>
     </div>
-
-   
     <div class="collections">
       <div class="custom-select">
         <select name="" id="">
           <option v-for="(collection, i) in collections" v-bind:key="i" v-on:click="selectCollection(i)">{{collection.title}}</option>
-    
         </select>
       </div>
       <div
@@ -28,7 +25,10 @@
       >
         <div class="thumbnail">
           <img v-bind:src="product.images[0].src" alt>
-          <div class="newtag">NIEUW</div>
+          <div v-if="collections[selectedCollection].handle == 'nieuw'" class="newtag">NIEUW</div>
+            
+            
+          <div v-if="collections[selectedCollection].handle == 'limited-edition'" class="limitedtag">LIMITED</div>
         </div>
         <div class="titleAndPrice">
           <div class="title">{{product.title}}</div>
@@ -250,6 +250,16 @@ ul {
   bottom: 0px;
   left: 0px;
   background: #22e7af;
+}
+
+.thumbnail .limitedtag {
+  height: 25px;
+  width: 90px;
+  color: white;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: red;
 }
 .thumbnail img {
   height: 100%;

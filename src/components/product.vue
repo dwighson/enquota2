@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div class="product" v-show="title != ''">
     <div class="slider">
       <div class="carousel"></div>
       <div class="carouselnav"></div>

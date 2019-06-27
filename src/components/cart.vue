@@ -24,7 +24,7 @@
             <p>formaat:</p>
             <div class="custom-select">
               <select>
-                <option value="1">30x40</option>
+                <option value="1">{{options[0].values[0].values[0]}}</option>
 
                 <option
                   v-bind:value="i"

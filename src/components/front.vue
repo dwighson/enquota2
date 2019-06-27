@@ -3,7 +3,7 @@
     <newstock/>
     <h1>Shop</h1>
     <allcollections/>
-    <testimonials/>
+    <!-- <testimonials/> -->
     <div class="aboutuswrap">
       <aboutus/>
       <instagram/>
