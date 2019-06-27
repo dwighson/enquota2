@@ -101,12 +101,12 @@ then close all select boxes:*/
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+1p:300,400,500");
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400,500");
 
-body {
+body, html {
   margin: 0;
   height: 100vh;
   width: 100vw;
 
-  overflow-x: hidden;
+  overflow: hidden;
 }
 * {
   font-family: "M PLUS 1p";
