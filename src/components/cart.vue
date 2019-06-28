@@ -1,7 +1,6 @@
 <template>
   <div class="cartpage">
     <ul class="cartitem">
-      <hr>
       <li v-for="(item, x) in checkoutobj" v-bind:key="x">
         <div class="thumbnail">
           <img v-bind:src="item.variant.image.src" alt>
@@ -9,59 +8,11 @@
         <div class="iteminfo">
           <p class="title">
             {{item.title}}
-            <span class="pricespan">&euro;{{item.variant.price}}</span>
+            {{item.variant.price}}
           </p>
 
-          <div class="aantal dropdownwrap">
-            <p>Aantal:</p>
-            <div class="custom-select">
-              <select name id>
-                <option value>2</option>
-              </select>
-            </div>
-          </div>
-          <div class="formaat dropdownwrap">
-            <p>formaat:</p>
-            <div class="custom-select">
-              <select>
-                <option value="1">{{options[0].values[0].values[0]}}</option>
-
-                <option
-                  v-bind:value="i"
-                  v-for="(option, i) in options[0].values[0].values"
-                  v-bind:key="i"
-                >{{option}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="diepte dropdownwrap">
-            <p>Diepte:</p>
-            <div class="custom-select">
-              <select name id>
-                <option value="1">2 cm</option>
-
-                <option
-                  v-bind:value="i + 1"
-                  v-for="(option, i) in options[0].values[1].values"
-                  v-bind:key="i"
-                >{{option}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="lijst dropdownwrap">
-            <p>Lijst</p>
-            <div class="custom-select">
-              <select name id>
-                <option value="1">met lijst</option>
-                <option
-                  v-bind:value="i + 1"
-                  v-for="(option, i) in options[0].values[2].values"
-                  v-bind:key="i"
-                >{{option}}</option>
-              </select>
-            </div>
-          </div>
-          <p class="deleteitem" v-on:click="removeproduct(item.id, x)">verwijder product &times;</p>
+         <p class="productdetails"> {{item.variant.title}}</p>
+          <button v-on:click="removeproduct(item.id, x)">verwijder product</button>
         </div>
       </li>
     </ul>
@@ -258,17 +209,20 @@ export default {
 </script>
 
 <style scoped>
+
 .cartpage {
   padding-top: 100px;
-  width: 100%;
+  width: 100vw;
   flex: 1;
   text-align: center;
 }
 .cartpage h1 {
-  background: purple;
   text-align: left;
   width: 1390px;
   margin: 0 auto;
+}
+li p {
+  width: 100%;
 }
 .pricespan {
   float: right;
@@ -276,24 +230,28 @@ export default {
 }
 ul.cartitem {
   display: inline-block;
+  width: 700px;
+  margin-top: 0px;
   text-align: left;
-  margin: 0px 150px 0px 0px;
   padding: 0;
+
 }
 hr {
   border: 1px solid rgba(0,0,0, .1);
 }
+
 .cartitem li {
   display: flex;
   margin-bottom: 10px;
   text-align: left;
-  width: 770px;
-  height: 270px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 10px;
 }
 .thumbnail {
-  height: 270px;
-  min-width: 270px;
-  max-width: 270px;
+  height: 170px;
+  width: 170px;
+  
   background: black;
 }
 .thumbnail img {
@@ -303,7 +261,8 @@ hr {
   object-position: 50% 50%;
 }
 .iteminfo {
-  min-width: 300px;
+  /*width: calc(100% - 20px);*/
+  width: 400px;
   position: relative;
   padding: 0px 0px 0px 20px;
   box-sizing: border-box;
@@ -316,6 +275,7 @@ hr {
 .iteminfo .title {
   font-size: 30px;
   padding: 0;
+  width: 100%;
   margin: 0;
 }
 p {
@@ -324,10 +284,10 @@ p {
 
 .total {
   display: inline-block;
-  margin: 10px;
+  margin: 0 auto;
   vertical-align: top;
   height: 400px;
-  width: 500px;
+  width: 100%;
   border: 1px solid rgba(0,0,0, .2);
   text-align: left;
   padding: 20px;
@@ -372,7 +332,6 @@ p {
   margin: 0;
   position: absolute;
   width: 140px;
-  background: yellow;
 }
 .optionbutton {
   width: 140px;
@@ -393,5 +352,71 @@ p {
   display: block;
   width: 100%;
   margin: 0;
+}
+@media only screen and (max-width: 1155px) {
+  .cartitem li {
+    width: 450px;
+  }
+  .cartitem {
+    max-width: 500px;
+  }
+  .iteminfo .title {
+    font-size: 22px;
+  }
+  .thumbnail {
+    width: 170px;
+  }
+}
+@media only screen and (max-width: 920px) {
+  ul.cartitem {
+    margin: 0px 50px 50px 50px;
+  }
+  .cartitem {
+    max-width: 450px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .cartpage {
+    overflow-x: hidden;
+
+    width: 100vw;
+  }
+  .total {
+    margin: 10px;
+    width: calc( 100% - 10px);
+  }
+  .cartitem {
+    margin: 0 !important;
+    width: 100vw;
+    
+  }
+  .cartitem li {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    min-width: 100%;
+
+  }
+  .thumbnail {
+    margin-left: 10px;
+    min-width: 120px ;
+    height: 120px;
+  }
+  .iteminfo .title {
+    font-size: 15px;
+    width: 200px;
+    text-transform: uppercase;
+  }
+  .iteminfo button {
+    height: 35px;
+    font-size: 15px;
+    line-height: 35px;
+    width: calc(100% - 20px);
+
+  }
+  .productdetails {
+    margin: 10px 0px;
+    font-size: 15px;
+
+  }
 }
 </style>
