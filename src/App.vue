@@ -125,7 +125,8 @@ body, html {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 :-webkit-scrollbar-button:hover{ background-color: #22E7AF; }  */
 

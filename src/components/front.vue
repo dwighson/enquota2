@@ -6,10 +6,10 @@
     <!-- <testimonials/> -->
     <div class="aboutuswrap">
       <aboutus/>
-      <instagram/>
+      <!-- <instagram/> -->
     </div>
     <shipping/>
-    <contact/>
+    <!-- <contact/> -->
   </div>
 </template>
 <script>
@@ -35,8 +35,10 @@ export default {
 </script>
 
 <style scoped>
+
 .front {
   /* min-height: 100vh; */
+  width: 100vw;
   flex: 1;
 }
 .aboutuswrap {

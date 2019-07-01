@@ -286,4 +286,12 @@ ul {
     transform: translateX(-50%);
   }
 }
+@media only screen and (max-width: 600px) {
+  .collections .item {
+    margin: 0;
+  }
+  .collections {
+    margin: 0;
+  }
+}
 </style>

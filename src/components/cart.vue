@@ -11,7 +11,7 @@
             {{item.variant.price}}
           </p>
 
-         <p class="productdetails"> {{item.variant.title}}</p>
+         <p class="productdetails"> aantal: x / {{item.variant.title}}</p>
           <button v-on:click="removeproduct(item.id, x)">verwijder product</button>
         </div>
       </li>

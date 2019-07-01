@@ -1,7 +1,13 @@
 <template>
   <div class="newstock">
     <h1>nieuwe canvassen op voorraad</h1>
-    <div class="stockwrap"></div>
+    <div class="stockwrap">
+      <div class="item" v-for="i in images">
+        <img v-bind:src="i">
+
+      </div>
+ 
+    </div>
   </div>
 </template>
 <script>
@@ -12,7 +18,8 @@ export default {
   data() {
     return {
       collectionss: [],
-      images: []
+      images: [],
+      links: []
     };
   },
   computed: {
@@ -36,14 +43,13 @@ export default {
       this.$router.push("product/" + collectionhandle + "/" + producthandle);
     }
   },
+  methods: {
+    goto(){
+
+    }
+  },
   mounted() {
-    $(".stockwrap").slick({
-      // lazyLoad: "ondemand",
-      slidesToShow: 4,
-      dots: false,
-      arrows: false,
-      centerMode: false
-    });
+ 
 
     this.$shopify.collection.fetchAllWithProducts().then(collections => {
       // Do something with the collections
@@ -55,17 +61,11 @@ export default {
       console.log(findnew.products);
       for (let i = 0; i <= findnew.products.length - 1; i++) {
         console.log("<router-link to='/products/" + findnew.handle + "/" + findnew.products[i].handle +" '>")
+
         imgg.push(findnew.products[i].images[0].src);
         if (i == findnew.products.length - 1) {
           for (let x = imgg.length - 1; x >= 0; x--) {
-            setTimeout(function() {
-              $(".stockwrap").slick(
-                "slickAdd",
-                "<a href='/product/" + findnew.handle + "/" + findnew.products[i].handle +" '><div class='newstockitem' style='background: url(" +
-                  imgg[x] +
-                  ") no-repeat center center; background-size: cover; '></div> </a>"
-              );
-            }, 500);
+          
           }
         }
       }
@@ -74,7 +74,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .newstock {
   min-height: 300px;
   /* padding-top: 25px; */
@@ -94,10 +94,24 @@ export default {
 }
 .stockwrap {
   margin: 0 auto;
+  overflow: hidden;
+  height: 300px;
   width: calc(100% - 100px);
 }
 .stockwrap a {
   display: inline-block;
+}
+.stockwrap .item {
+  height: 250px;
+  width: 250px;
+  position: relative;
+  margin: 20px;
+  display: inline-block
+}
+.stockwrap .item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover
 }
 .newstockitem {
   height: calc(300px - 30px);
@@ -115,7 +129,7 @@ export default {
   object-fit: cover;
   object-position: 50% 50%;
 }
-.newstockitem::before {
+.item::before {
   content: "NIEUW";
   height: 20px;
   width: 100px;
@@ -126,5 +140,27 @@ export default {
   left: 0;
   line-height: 20px;
   color: white;
+}
+@media only screen and (max-width: 1025px) {
+  .newstock h1 {
+    font-size: 50px;
+  }
+}
+@media only screen and (max-width: 825px) {
+  .newstock h1 {
+    font-size: 40px;
+  }
+}
+@media only screen and (max-width: 655px) {
+  .newstock h1 {
+    font-size: 30px;
+  }
+}
+@media only screen and (max-width: 520px) {
+  .newstock h1 {
+    font-size: 17px;
+    height: auto;
+    line-height: 40px;
+  }
 }
 </style>

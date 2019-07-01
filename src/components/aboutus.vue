@@ -34,4 +34,11 @@ h1 {
   font-size: 48px;
   padding: 0;
 }
+
+@media only screen and (max-width: 600px) {
+  .aboutus {
+    margin: 0;
+    
+  }
+}
 </style>
