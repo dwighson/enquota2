@@ -292,13 +292,14 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 .product {
   padding-top: 50px;
   flex: 1;
   /* display: inline-block; */
   /* background: green; */
   width: 100vw;
+  overflow-x: hidden;
   text-align: center;
 }
 .product * {
@@ -322,7 +323,7 @@ export default {
   min-width: 320px;
   /* max-width: 500px; */
   display: inline-block;
-  padding: 20px;
+  padding: 0px 20px;
   box-sizing: border-box;
   vertical-align: top;
 }
@@ -340,7 +341,7 @@ export default {
 .carousel {
   width: calc(100% - 100px);
   max-width: 560px;
-
+  min-width: 310px;
   overflow: hidden;
   margin: 0 auto;
   height: 560px;
@@ -378,6 +379,7 @@ export default {
 .carouselnav .slide {
   max-height: 90px;
   overflow: hidden;
+  float: left;
   width: 25%;
   height: 100%;
   max-width: 90px;

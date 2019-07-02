@@ -213,7 +213,7 @@ ul {
   flex: 1;
   min-height: 500px;
   position: relative;
-  text-align: center;
+  text-align: left;
 }
 .collections .item {
   height: 400px;
@@ -272,8 +272,9 @@ ul {
     display: none;
   }
   .collections {
-  padding-top: 50px;
-
+    padding-top: 50px;
+    margin: 0;
+    text-align: center !important;
   }
   .custom-select {
     display: block;
@@ -292,6 +293,7 @@ ul {
   }
   .collections {
     margin: 0;
+    text-align: center !important;
   }
 }
 </style>

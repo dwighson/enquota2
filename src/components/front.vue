@@ -6,7 +6,7 @@
     <!-- <testimonials/> -->
     <div class="aboutuswrap">
       <aboutus/>
-      <!-- <instagram/> -->
+      <instagram/>
     </div>
     <shipping/>
     <!-- <contact/> -->
