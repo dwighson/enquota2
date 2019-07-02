@@ -2,7 +2,8 @@
   <div class="newstock">
     <h1>nieuwe canvassen op voorraad</h1>
     <div class="stockwrap">
-      <div class="item" v-for="i in images">
+
+      <div class="item" v-on:click="gotoproduct(index)" v-for="(i, index) in images" v-bind:key="index">
         <img v-bind:src="i">
 
       </div>
@@ -37,17 +38,12 @@ export default {
   },
   methods: {
     gotoproduct(product) {
-      let collectionhandle = this.collections.handle;
-
-      let producthandle = product.handle;
-      this.$router.push("product/" + collectionhandle + "/" + producthandle);
+      // let collectionhandle = this.collections.handle;
+      // alert(this.links[product])
+      this.$router.push(this.links[product])
     }
   },
-  methods: {
-    goto(){
 
-    }
-  },
   mounted() {
  
 
@@ -60,8 +56,8 @@ export default {
       });
       console.log(findnew.products);
       for (let i = 0; i <= findnew.products.length - 1; i++) {
-        console.log("<router-link to='/products/" + findnew.handle + "/" + findnew.products[i].handle +" '>")
-
+        // console.log("<router-link to='/products/" + findnew.handle + "/" + findnew.products[i].handle +" '>")
+        this.links.push('/product/' + findnew.handle + '/' + findnew.products[i].handle)
         imgg.push(findnew.products[i].images[0].src);
         if (i == findnew.products.length - 1) {
           for (let x = imgg.length - 1; x >= 0; x--) {
