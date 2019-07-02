@@ -22,11 +22,11 @@ export default {
 <style scoped>
 footer {
   max-height: 300px;
-  width: 100%;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   background: orange;
-  position: absolute;
+  position: relative;
   left: 0;
   bottom: 0;
 }

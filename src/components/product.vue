@@ -48,7 +48,7 @@
           <div class="count">{{ amount }}</div>
           <div class="add" v-on:click="add">+</div>
         </div>
-        <button v-on:click="addtocart">in mijn winkelmandje</button>
+        <button v-on:click="addtocart">winkelmandje</button>
       </div>
       <p>Veilig en makkelijk betalen met:</p>
     </div>
@@ -298,6 +298,7 @@ export default {
   flex: 1;
   /* display: inline-block; */
   /* background: green; */
+  width: 100vw;
   text-align: center;
 }
 .product * {
@@ -309,7 +310,7 @@ export default {
 .slider {
   min-height: 300px;
   width: calc(50% - 20px);
-  min-width: 350px;
+  min-width: 320px;
   max-width: 800px;
   display: inline-block;
   vertical-align: top;
@@ -318,7 +319,7 @@ export default {
   min-height: 800px;
   text-align: left;
   width: calc(50% - 150px);
-  min-width: 350px;
+  min-width: 320px;
   /* max-width: 500px; */
   display: inline-block;
   padding: 20px;
@@ -505,5 +506,13 @@ export default {
 .counter .remove {
   flex: 1;
   line-height: 60px;
+}
+@media only screen and (max-width: 380px) {
+  .formats {
+    margin: 5px;
+  }
+  .productinfo {
+    padding:5px;
+  }
 }
 </style>
