@@ -35,7 +35,9 @@ export default {
 </script>
 
 <style scoped>
-
+* {
+  outline: 1px solid red;
+}
 .front {
   /* min-height: 100vh; */
   width: 100vw;

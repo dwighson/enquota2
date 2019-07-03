@@ -5,11 +5,17 @@
       Kempi Collectie staat nu online!
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
     </div>
-    <div class="logo"></div>
-    <router-link tag="div" to="/cart" class="cartmobile">
-    <div class="carticon"></div>
-    </router-link>
-    <button class="navbutton">=</button>
+    <div class="logowrap">
+      <div class="logo"></div>
+      <router-link tag="div" to="/cart" class="cartmobile">
+        <div class="carticon"></div>
+      </router-link>
+      <button class="navbutton">
+        <div class="buttonstripe"></div>
+        <div class="buttonstripe"></div>
+        <div class="buttonstripe"></div>
+      </button>
+    </div>
     <ul class="navlist">
       <span class="navwrap">
         <router-link tag="li" to="/">Shop</router-link>
@@ -80,7 +86,7 @@ export default {
   display: flex;
   min-height: 50px;
   width: 100vw;
-  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, .05);
   text-align: center;
   z-index: 9999;
   flex-direction: column;
@@ -89,6 +95,18 @@ export default {
 li {
   cursor: pointer;
 }
+.buttonstripe {
+  height: 5px;
+  width: 100%;
+  background: black;
+  float: right;
+
+  margin: 2px;
+}
+.buttonstripe:nth-of-type(2) {
+  width: calc(100% - 8px);
+}
+
 .announcement {
   height: 50px;
   color: white;
@@ -155,8 +173,8 @@ li {
   background: url("https://media.discordapp.net/attachments/546084619339038741/564536432841064478/Vector.png") no-repeat center center;
   background-size: contain;
   height: 50px;
-  margin: 0 auto;
   margin: 0;
+  margin-right: 5px;
   padding: 0;
   width: 30px;
 }
@@ -173,13 +191,17 @@ li {
 .navbutton {
   display: none;
 }
-
+.logowrap {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
 @media only screen and (max-width: 600px) {
   .navlist {
     display: none;
   }
   .logo {
-    width: 200px;
+    width: 150px;
     /* margin-left:30px; */
     /* float: left; */
     float: none;
@@ -212,8 +234,6 @@ li {
     width: 40px;
     height: 100%;
   }
-  .shipping {
-    display: none;
-  }
+
 }
 </style>

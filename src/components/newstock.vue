@@ -71,6 +71,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  outline: 1px solid red;
+}
 .newstock {
   min-height: 300px;
   /* padding-top: 25px; */
@@ -101,7 +104,7 @@ export default {
   height: 300px;
   width: 300px;
   position: relative;
-  margin: 10px;
+  margin: 0px 10px;
   display: inline-block
 }
 .stockwrap .item img {
@@ -132,7 +135,7 @@ export default {
   background: #22e7af;
 
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   left: 0;
   line-height: 20px;
   color: white;
@@ -150,6 +153,9 @@ export default {
 @media only screen and (max-width: 655px) {
   .newstock h1 {
     font-size: 30px;
+  }
+  .stockwrap {
+    width: 100%;
   }
 }
 @media only screen and (max-width: 520px) {
