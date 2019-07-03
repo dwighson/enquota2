@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style scoped>
+ * {
+  /*outline: 1px solid red;*/
+ }
   .instagram {
     width: calc(50% - 200px);  
     margin: 80px;
@@ -52,7 +55,7 @@ export default {
     display: inline-block;
     margin: 5px;
     height: 300px;
-    background: yellow;
+    background: black;
   }
   .instatitle button {
     height: 70px;
@@ -66,27 +69,56 @@ export default {
     float: left;
   }
 
-  @media only screen and (max-width: 630px) {
+
+
+
+  @media only screen and (max-width: 1600px) {
+
+    .instafeed {
+      width: 100%;
+      text-align: center;
+    }
     .instafeed .instapic {
       width: 220px;
       height: 220px;
-      background: blue;
+      background: black;
     }
   }
-  @media only screen and (max-width: 1600px) {
+  @media only screen and (max-width: 1450px) {
     .instagram {
-      width: 100%;
+      width: 600px;
       margin: 0;
-    }
-    .instafeed {
-        width: 100%;
-        background: purple;
-        text-align: center;
-    }
-    .instafeed .instapic {
-      width: 320px;
-      height: 320px;
-      background: blue;
+      text-align: center;
     }
   }
+
+
+  @media only screen and (max-width: 650px) {
+    .instafeed .instapic {
+      width: 220px;
+      height: 220px;
+    }
+    .instagram, .instafeed{
+      width: 100% !important;
+    }
+    .instatitle {
+      width: 100%;
+      min-height: 200px;
+    }
+    .instatitle h1 {
+      width: 100%;
+    } 
+    .instatitle button{
+      float: none;
+      margin: 0 auto;
+      width: calc(100% - 50px);
+    }
+  }
+  @media only screen and (max-width: 420px) { 
+    .instafeed .instapic {
+      width: 130px;
+      height: 130px;
+    }
+  }
+
 </style>

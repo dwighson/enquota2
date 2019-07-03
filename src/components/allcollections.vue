@@ -14,6 +14,7 @@
     <div class="collections">
       <div class="custom-select">
         <select name="" id="">
+          <option>{{collections[0].title}}</option>
           <option v-for="(collection, i) in collections" v-bind:key="i" v-on:click="selectCollection(i)">{{collection.title}}</option>
         </select>
       </div>
@@ -48,7 +49,16 @@ export default {
     };
   },
   mounted() {
-      setTimeout(function() {
+      let changeCollectionIndex = (index) => {
+        if(index == 0) {
+        this.selectedCollection = index 
+
+        } else {
+        this.selectedCollection = index - 1
+          
+        }
+      }
+      setTimeout(() => {
         var x, i, j, selElmnt, a, b, c;
         /*look for any elements with the class "custom-select":*/
         x = document.getElementsByClassName("custom-select");
@@ -76,6 +86,8 @@ export default {
               for (i = 0; i < s.length; i++) {
                 if (s.options[i].innerHTML == this.innerHTML) {
                   s.selectedIndex = i;
+                  //do something here
+                  changeCollectionIndex(i)
                   h.innerHTML = this.innerHTML;
                   y = this.parentNode.getElementsByClassName(
                     "same-as-selected"
@@ -137,6 +149,7 @@ export default {
     }
   },
   methods: {
+
     newcollection() {
       let newcollection = this.collections.filter(function(newcollect) {
         return newcollect.handle == "nieuw";
@@ -151,6 +164,7 @@ export default {
     },
     selectCollection(index) {
       this.selectedCollection = index;
+      console.log(index)
       console.log(this.collections[this.selectedCollection]);
     },
     gotoproduct(product) {
@@ -284,6 +298,7 @@ ul {
     top: 0px;
     border: 0px;
     left: 50%;
+    z-index: 1;
     transform: translateX(-50%);
   }
 }

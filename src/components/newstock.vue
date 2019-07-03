@@ -98,10 +98,10 @@ export default {
   display: inline-block;
 }
 .stockwrap .item {
-  height: 250px;
-  width: 250px;
+  height: 300px;
+  width: 300px;
   position: relative;
-  margin: 20px;
+  margin: 10px;
   display: inline-block
 }
 .stockwrap .item img {

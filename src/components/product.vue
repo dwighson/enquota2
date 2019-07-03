@@ -13,7 +13,7 @@
       <div class="price">&euro;{{variantprice}}</div>
       <hr>
       <div class="formaat">
-        <b>Formaat:</b>
+        <p>Formaat:</p>
       </div>
       <p>afmetingen zijn in centimeters</p>
       <div class="formaten">
@@ -292,14 +292,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .product {
   padding-top: 50px;
   flex: 1;
   /* display: inline-block; */
   /* background: green; */
   width: 100vw;
-  overflow-x: hidden;
   text-align: center;
 }
 .product * {
@@ -323,9 +322,12 @@ export default {
   min-width: 320px;
   /* max-width: 500px; */
   display: inline-block;
-  padding: 0px 20px;
+  padding: 20px;
   box-sizing: border-box;
   vertical-align: top;
+}
+.productinfo p {
+  padding-left: 5px;
 }
 .title {
   font-size: 40px;
@@ -396,7 +398,7 @@ export default {
   display: flex;
 }
 .formaat b {
-  font-size: 21px;
+  /*font-size: 21px;*/  
 }
 .formats {
   height: 140px;
