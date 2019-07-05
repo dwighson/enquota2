@@ -1,16 +1,16 @@
 <template>
-  <div class="nav">
+  <div class="nav" v-bind:class="{'open': menutoggle == true}">
     <div class="shipping">Gratis verzending voor Nederland en België</div>
     <div class="announcement" v-show="close == false">
       Kempi Collectie staat nu online!
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
     </div>
     <div class="logowrap">
-      <button class="navbutton" v-on:click="togglemenu">
+      <div class="navbutton" v-on:click="togglemenu">
         <div class="buttonstripe"></div>
         <div class="buttonstripe"></div>
         <div class="buttonstripe"></div>
-      </button>
+      </div>
       <div class="logo"></div>
       <router-link tag="button" to="/cart" class="cartmobile">
         <div class="carticon"></div>
@@ -32,14 +32,13 @@
     <div class=""></div>
     <div class="mobilemenu" v-show="menutoggle == true">
       <ul>
+          <div class="closemenu" v-on:click="togglemenu">&times;</div>
+
       <span class="navwrap">
-        <li>     
-          <button v-on:click="togglemenu">&times;</button>
-        </li>
-        <router-link tag="li" to="/">Shop</router-link>
-        <li>over ons</li>
-        <li>Contact</li>
-        <li>testimonials</li>
+        <router-link tag="li" to="/#overons" @click.native="togglemenu">Shop</router-link>
+        <li v-on:click="togglemenu">over ons</li>
+        <li v-on:click="togglemenu">Contact</li>
+        <li v-on:click="togglemenu">testimonials</li>
        
       </span>
     </ul>
@@ -115,10 +114,14 @@ export default {
 li {
   cursor: pointer;
 }
+.open {
+  min-height: 100vh;
+}
 .buttonstripe {
   height: 5px;
   width: 100%;
   background: black;
+  border-radius: 10px;
   float: left;
 
   margin: 2px;
@@ -134,7 +137,16 @@ li {
   position: relative;
   background: #22e7af;
 }
-
+.closemenu {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 30px;
+  width: 50px
+}
 .closeBanner {
   position: absolute;
   right: 20px;
@@ -148,8 +160,9 @@ li {
 }
 .mobilemenu {
   width: 100vw;
-  height: 100vh;
+  min-height: 100%;
   position: fixed;
+  z-index: 9999;
   background: white;
   left: 0;
   top: 0;
@@ -171,6 +184,7 @@ li {
   padding: 0px 20px;
   box-sizing: border-box;
   width: 300px;
+  display: block;
   line-height: 40px;
   border-bottom: 1px solid rgba(0,0,0, .2);
 }
@@ -279,6 +293,7 @@ li {
     line-height: 50px;
     left: 10px;
     border: 0px;
+    padding: 10px;
     display: block;
     font-size: 40px;
     float: left;
