@@ -72,7 +72,7 @@ export default {
 
 <style scoped>
 * {
-  outline: 1px solid red;
+  /*outline: 1px solid red;*/
 }
 .newstock {
   min-height: 300px;

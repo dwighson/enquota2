@@ -6,15 +6,16 @@
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
     </div>
     <div class="logowrap">
-      <div class="logo"></div>
-      <router-link tag="div" to="/cart" class="cartmobile">
-        <div class="carticon"></div>
-      </router-link>
-      <button class="navbutton">
+      <button class="navbutton" v-on:click="togglemenu">
         <div class="buttonstripe"></div>
         <div class="buttonstripe"></div>
         <div class="buttonstripe"></div>
       </button>
+      <div class="logo"></div>
+      <router-link tag="button" to="/cart" class="cartmobile">
+        <div class="carticon"></div>
+      </router-link>
+
     </div>
     <ul class="navlist">
       <span class="navwrap">
@@ -28,12 +29,28 @@
         <!-- <li>({{getCartItems}})</li> -->
       </span>
     </ul>
+    <div class=""></div>
+    <div class="mobilemenu" v-show="menutoggle == true">
+      <ul>
+      <span class="navwrap">
+        <li>     
+          <button v-on:click="togglemenu">&times;</button>
+        </li>
+        <router-link tag="li" to="/">Shop</router-link>
+        <li>over ons</li>
+        <li>Contact</li>
+        <li>testimonials</li>
+       
+      </span>
+    </ul>
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      menutoggle: false,
       cartitems: 0,
       close: false,
       checkoutid: localStorage.getItem("checkoutid")
@@ -42,6 +59,9 @@ export default {
   methods: {
     closebanner() {
       this.close = !this.close;
+    },
+    togglemenu() {
+      this.menutoggle = !this.menutoggle
     }
   },
   computed: {
@@ -99,7 +119,7 @@ li {
   height: 5px;
   width: 100%;
   background: black;
-  float: right;
+  float: left;
 
   margin: 2px;
 }
@@ -126,7 +146,34 @@ li {
   border: none;
   transform: translateY(-50%);
 }
+.mobilemenu {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: white;
+  left: 0;
+  top: 0;
 
+}
+
+
+.mobilemenu ul {
+  text-align: left;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  padding-left: 10px;
+  width: 100%;
+  margin: 0;
+}
+.mobilemenu li {
+  height: 40px;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  width: 300px;
+  line-height: 40px;
+  border-bottom: 1px solid rgba(0,0,0, .2);
+}
 .logo {
   text-align: center;
   font-size: 80px;
@@ -155,7 +202,6 @@ li {
   float: left;
   flex: 1;
   font-size: 25px;
-  /* background: purple; */
   line-height: 50px;
   text-align: center;
   font-weight: lighter;
@@ -200,6 +246,9 @@ li {
   .navlist {
     display: none;
   }
+  .mobilemenu {
+    display: block;
+  }
   .logo {
     width: 150px;
     /* margin-left:30px; */
@@ -217,7 +266,9 @@ li {
   .cartmobile {
     display: block;
     position: absolute;
-    right: 50px;
+    right: 10px;
+    border: none;
+    background: none;
     top: 0px;
   }
   .navbutton {
@@ -226,7 +277,7 @@ li {
     top: 0px;
     background: none;
     line-height: 50px;
-    right: 10px;
+    left: 10px;
     border: 0px;
     display: block;
     font-size: 40px;

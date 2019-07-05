@@ -295,6 +295,7 @@ export default {
 <style >
 .product {
   padding-top: 50px;
+  padding-bottom: 50px;
   flex: 1;
   /* display: inline-block; */
   /* background: green; */
@@ -511,12 +512,15 @@ export default {
   flex: 1;
   line-height: 60px;
 }
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 450px) {
   .formats {
     margin: 5px;
   }
   .productinfo {
     padding:5px;
+  }
+  .productinfo {
+    width: calc(100% - 10px)
   }
 }
 </style>

@@ -34,15 +34,17 @@ h1 {
 }
 .flex {
   font-size: 20px;
-  display: flex
+  text-align: center;
 }
 .form {
-  flex: 1;
+  display: inline-block;
   box-sizing: border-box;
   margin: 0px 40px;
+  background: purple;
 }
 .form .formwrap {
   float: right;
+  background: green;
   width: 560px;
   box-sizing: border-box;
   min-height: 300px;
@@ -70,7 +72,16 @@ h1 {
 
 }
 .contactinfo {
-  flex: 1;
- 
+  display: inline-block;
+  vertical-align: top;
+}
+@media only screen and (max-width: 700px) {
+  .form .formwrap {
+    width: 100%;
+    background: none;
+  }
+  .form {
+    /*width: calc(100% - 20px);*/
+  }
 }
 </style>

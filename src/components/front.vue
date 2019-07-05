@@ -9,7 +9,7 @@
       <instagram/>
     </div>
     <shipping/>
-    <!-- <contact/> -->
+    <contact/>
   </div>
 </template>
 <script>
@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 * {
-  outline: 1px solid red;
+  /*outline: 1px solid red;*/
 }
 .front {
   /* min-height: 100vh; */
