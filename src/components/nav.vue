@@ -1,10 +1,12 @@
 <template>
   <div class="nav" v-bind:class="{'open': menutoggle == true}">
     <div class="shipping">Gratis verzending voor Nederland en België</div>
-    <div class="announcement" v-show="close == false">
+<!--     <div class="announcement" v-show="close == false">
       Kempi Collectie staat nu online!
       <button class="closeBanner" v-on:click="closebanner">&times;</button>
-    </div>
+    </div> -->
+      <div class="logo big"></div>
+
     <div class="logowrap">
       <div class="navbutton" v-on:click="togglemenu">
         <div class="buttonstripe"></div>
@@ -20,7 +22,7 @@
     <ul class="navlist">
       <span class="navwrap">
         <router-link tag="li" to="/">Shop</router-link>
-        <li>over ons</li>
+        <li v-on:click="gotoAnchor">over ons</li>
         <li>Contact</li>
         <li>testimonials</li>
         <router-link tag="li" to="/cart" class="cart">
@@ -56,6 +58,12 @@ export default {
     };
   },
   methods: {
+    gotoAnchor() {
+     this.$router.push('/')
+      document.querySelector('.aboutus').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    },
     closebanner() {
       this.close = !this.close;
     },
@@ -139,7 +147,7 @@ li {
 }
 .closemenu {
   position: absolute;
-  right: 20px;
+  left: 7px;
   top: 0;
   text-align: center;
   height: 40px;
@@ -173,9 +181,11 @@ li {
 .mobilemenu ul {
   text-align: left;
   padding: 0;
-  position: relative;
+  position: absolute;
   z-index: 1;
-  padding-left: 10px;
+  transform: translateX(-50%);
+  left: 50%;
+
   width: 100%;
   margin: 0;
 }
@@ -183,12 +193,12 @@ li {
   height: 40px;
   padding: 0px 20px;
   box-sizing: border-box;
-  width: 300px;
+  width: 100%;
   display: block;
   line-height: 40px;
   border-bottom: 1px solid rgba(0,0,0, .2);
 }
-.logo {
+ .logo {
   text-align: center;
   font-size: 80px;
   float: left;
@@ -202,6 +212,7 @@ li {
   padding: 0px;
   text-align: center;
   height: 50px;
+  max-height: 80px;
   margin: 0px;
   flex: 1;
 }
@@ -211,6 +222,10 @@ li {
   display: inline-block;
 }
 
+.mobilemenu .navwrap {
+  margin-top: 40px;
+
+}
 .navlist li {
   display: block;
   float: left;
@@ -255,6 +270,7 @@ li {
   height: 50px;
   position: relative;
   width: 100%;
+  display: none;
 }
 @media only screen and (max-width: 600px) {
   .navlist {
@@ -263,7 +279,13 @@ li {
   .mobilemenu {
     display: block;
   }
-  .logo {
+  .big {
+    display: none;
+  }
+  .logowrap {
+    display: block;
+  }
+  .logowrap .logo {
     width: 150px;
     /* margin-left:30px; */
     /* float: left; */

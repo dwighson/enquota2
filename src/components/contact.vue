@@ -2,7 +2,7 @@
   <div class="contact">
     <h1>Contact Ons</h1>
     <span class="flex">
-      <div class="form">
+<!--       <div class="form">
         <div class="formwrap">
           <input type="text" placeholder="Naam">
           <input type="text" placeholder="Email">
@@ -10,7 +10,7 @@
           <textarea placeholder="Bericht"></textarea>
           <button>verzenden</button>
         </div>
-      </div>
+      </div> -->
       <div class="contactinfo">
         <p>Telefoonnummer: (+31)06 43227028</p>
         <p>Email: Enquota@gmail.com</p>

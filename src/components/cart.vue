@@ -8,7 +8,7 @@
         <div class="iteminfo">
           <p class="title">
             {{item.title}}
-            {{item.variant.price}}
+            &euro;{{item.variant.price}}
           </p>
 
          <p class="productdetails"> aantal: x / {{item.variant.title}}</p>
@@ -24,19 +24,19 @@
       </p>
       <p>
         verzendkosten:
-        <span class="pricespan">gratis</span>
+        <span class="pricespan">gratis (NL & BE)</span>
       </p>
 
-      <p>kortingscode invoeren:</p>
+ <!--      <p>kortingscode invoeren:</p>
       <input type="text" placeholder="ENQUOTA2019">
       <button class="discountbutton">+</button>
-
+ -->
       <p>
         Totaal:
         <span>&euro;150,00</span>
       </p>
 
-      <button class="checkoutbutton">bestellen</button>
+      <button class="checkoutbutton" v-on:click="gotocheckout">bestellen</button>
       <p class="geldterug">niet tevreden? Geld terug!</p>
     </div>
   </div>
@@ -88,7 +88,7 @@ export default {
         .then(checkout => {
           this.checkoutobj.splice(index, 1);
           this.options.splice(index, 1);
-          alert("Het product is uit uw winkelwagel verwijdert");
+          // alert("Het product is uit uw winkelwagel verwijdert");
         });
     },
     fetchproduct(id, custom) {
@@ -245,7 +245,7 @@ hr {
   margin-bottom: 10px;
   text-align: left;
   width: 100%;
-  max-width: 600px;
+  max-width: 100%;
   min-height: 10px;
 }
 .thumbnail {
@@ -387,13 +387,14 @@ p {
   }
   .cartitem {
     margin: 0 !important;
-    width: 100vw;
+    width: calc(100% - 10px) !important;
     
   }
   .cartitem li {
     margin: 0 auto;
     margin-bottom: 10px;
-    min-width: 100%;
+    
+    max-width: 100%;
 
   }
   .thumbnail {
