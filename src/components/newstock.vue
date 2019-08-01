@@ -54,7 +54,7 @@ export default {
       let findnew = this.collectionss.find(function(collect) {
         return collect.handle == "nieuw";
       });
-      console.log(findnew.products);
+      // console.log(findnew.products);
       for (let i = 0; i <= findnew.products.length - 1; i++) {
         // console.log("<router-link to='/products/" + findnew.handle + "/" + findnew.products[i].handle +" '>")
         this.links.push('/product/' + findnew.handle + '/' + findnew.products[i].handle)

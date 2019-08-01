@@ -1,22 +1,45 @@
 <template>
   <div class="instagram">
     <div class="instatitle">
-       <h1>Instagram</h1> <button>Follow ons nu!</button>
+       <h1>Instagram</h1> <button v-on:click="openInNewTab('https://www.instagram.com/enquota')">Follow ons nu!</button>
     </div>
     <div class="instafeed">
-      <div class="instapic"></div>
-      <div class="instapic"></div>
-      <div class="instapic"></div>
-      <div class="instapic"></div>
+      <div class="instapic" v-on:click="openInNewTab('https://www.instagram.com/enquota')" v-for="img in results" v-bind:key="img" v-bind:style="{background: 'url('+img+') no-repeat center center', 'background-size': 'cover'}"></div>
+
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 import $ from "jquery";
 import Instafeed from "instafeed.js";
 export default {
+  data() {
+    return {
+      results: []
+    }
+  },
+  methods: {
+    openInNewTab(url) {
+      var win = window.open(url, '_blank');
+      win.focus();
+    }
+  },
   mounted() {
- 
+     axios.get("https://www.instagram.com/enquota/?__a=1")
+    .then(response => {
+      let count = response.data.graphql.user.edge_owner_to_timeline_media.edges.length
+      if(count >= 3) {
+        count = 3
+        for(let i = 0; i <= count; i++) {
+          this.results.push(response.data.graphql.user.edge_owner_to_timeline_media.edges[i].node.display_url)
+        }
+      } else {
+        for(let i = 0; i <= count; i++) {
+          this.results.push(response.data.graphql.user.edge_owner_to_timeline_media.edges[i].node.display_url)
+        }
+      }
+    })
   }
 };
 </script>

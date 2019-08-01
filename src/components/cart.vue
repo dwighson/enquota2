@@ -8,10 +8,11 @@
         <div class="iteminfo">
           <p class="title">
             {{item.title}}
+
             &euro;{{item.variant.price}}
           </p>
 
-         <p class="productdetails"> aantal: x / {{item.variant.title}}</p>
+         <p class="productdetails"> aantal: {{item.quantity}} / {{item.variant.title}}</p>
           <button v-on:click="removeproduct(item.id, x)">verwijder product</button>
         </div>
       </li>
@@ -20,7 +21,7 @@
     <div class="total">
       <p>
         subtotaal:
-        <span class="pricespan">&euro;2</span>
+        <span class="pricespan">&euro;{{subtotal}}</span>
       </p>
       <p>
         verzendkosten:
@@ -33,7 +34,7 @@
  -->
       <p>
         Totaal:
-        <span>&euro;150,00</span>
+        <span>&euro;{{subtotal}}</span>
       </p>
 
       <button class="checkoutbutton" v-on:click="gotocheckout">bestellen</button>
@@ -54,7 +55,8 @@ export default {
       checkoutraw: [],
       chosenOptions: "",
       products: [],
-      options: []
+      options: [],
+      subtotal: 0
     };
   },
 
@@ -65,8 +67,6 @@ export default {
           .fetch(this.checkoutobj[y].variant.product.id)
           .then(product => {
             this.options.push({ values: product.options });
-            console.log(this.checkoutobj[y]);
-            console.log(this.options);
           });
       }
     },
@@ -91,35 +91,37 @@ export default {
           // alert("Het product is uit uw winkelwagel verwijdert");
         });
     },
-    fetchproduct(id, custom) {
-      let decodeddata = window.atob(custom[0].value);
-      let objj = Object.values(JSON.parse(decodeddata));
+    // fetchproduct(id, custom) {
+    //   let decodeddata = window.atob(custom[0].value);
+    //   let objj = Object.values(JSON.parse(decodeddata));
 
-      let options = {
-        format: [],
-        depth: [],
-        border: []
-      };
-      for (let i = 0; i <= objj[0].length - 1; i++) {
-        options.format.push(objj[0][i].value);
-      }
-      for (let i = 0; i <= objj[1].length - 1; i++) {
-        options.depth.push(objj[1][i].value);
-      }
-      for (let i = 0; i <= objj[2].length - 1; i++) {
-        options.border.push(objj[2][i].value);
-      }
+    //   let options = {
+    //     format: [],
+    //     depth: [],
+    //     border: []
+    //   };
+    //   for (let i = 0; i <= objj[0].length - 1; i++) {
+    //     options.format.push(objj[0][i].value);
+    //   }
+    //   for (let i = 0; i <= objj[1].length - 1; i++) {
+    //     options.depth.push(objj[1][i].value);
+    //   }
+    //   for (let i = 0; i <= objj[2].length - 1; i++) {
+    //     options.border.push(objj[2][i].value);
+    //   }
 
-      return options;
-    }
+    //   return options;
+    // }
   },
   mounted() {
     let checkid = this.checkoutid;
     this.$shopify.checkout.fetch(checkid).then(checkout => {
-
+      console.log(checkout)
+      this.subtotal = checkout.subtotalPrice
       this.checkoutraw = checkout;
       for (let i = 0; i <= checkout.lineItems.length - 1; i++) {
         this.checkoutobj.push(checkout.lineItems[i]);
+        console.log(this.checkoutobj)
         if (i == checkout.lineItems.length - 1) {
           this.fetchoptions();
         }

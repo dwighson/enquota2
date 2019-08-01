@@ -21,10 +21,10 @@
     </div>
     <ul class="navlist">
       <span class="navwrap">
-        <router-link tag="li" to="/">Shop</router-link>
-        <li v-on:click="gotoAnchor">over ons</li>
-        <li>Contact</li>
-        <li>testimonials</li>
+        <li v-on:click="gotoAnchor('.newstock')">Shop</li>
+        <li v-on:click="gotoAnchor('.aboutus')">over ons</li>
+        <li v-on:click="gotoAnchor('.contact')">Contact</li>
+        <!-- <li>testimonials</li> -->
         <router-link tag="li" to="/cart" class="cart">
         <div class="carticon"></div>
         </router-link>
@@ -37,10 +37,9 @@
           <div class="closemenu" v-on:click="togglemenu">&times;</div>
 
       <span class="navwrap">
-        <router-link tag="li" to="/#overons" @click.native="togglemenu">Shop</router-link>
-        <li v-on:click="togglemenu">over ons</li>
-        <li v-on:click="togglemenu">Contact</li>
-        <li v-on:click="togglemenu">testimonials</li>
+        <router-link tag="li" @click.native="togglemenu();gotoAnchor('.newstock')">Shop</router-link>
+        <li v-on:click="togglemenu();gotoAnchor('.aboutus')">over ons</li>
+        <li v-on:click="togglemenu();gotoAnchor('.contact')">Contact</li>
        
       </span>
     </ul>
@@ -58,9 +57,9 @@ export default {
     };
   },
   methods: {
-    gotoAnchor() {
+    gotoAnchor(cssclass) {
      this.$router.push('/')
-      document.querySelector('.aboutus').scrollIntoView({ 
+      document.querySelector(cssclass).scrollIntoView({ 
         behavior: 'smooth' 
       });
     },

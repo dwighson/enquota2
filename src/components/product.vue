@@ -52,6 +52,7 @@
       </div>
       <p>Veilig en makkelijk betalen met:</p>
     </div>
+    <shippingbanner/>
   </div>
 </template>
 <script>
@@ -60,8 +61,11 @@ import slick from "slick-carousel";
 import "slick-carousel/slick/slick.css";
 import $ from "jquery";
 import { setTimeout } from "timers";
-
+import shippingbanner from './shippingbanner'
 export default {
+  components: {
+    shippingbanner
+  },
   data() {
     return {
       amount: 1,
