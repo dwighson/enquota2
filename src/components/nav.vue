@@ -37,7 +37,7 @@
           <div class="closemenu" v-on:click="togglemenu">&times;</div>
 
       <span class="navwrap">
-        <router-link tag="li" @click.native="togglemenu();gotoAnchor('.newstock')">Shop</router-link>
+        <li v-on:click="togglemenu();gotoAnchor('.newstock')">Shop</li>
         <li v-on:click="togglemenu();gotoAnchor('.aboutus')">over ons</li>
         <li v-on:click="togglemenu();gotoAnchor('.contact')">Contact</li>
        
